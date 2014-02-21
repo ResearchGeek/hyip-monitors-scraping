@@ -23,6 +23,7 @@ class Hyip():
     max_deposit = None
     referral_bonus = None
     plan = None
+    days_online = None
 
     def setName(self, name):
         self.repository_name = name
@@ -59,3 +60,9 @@ class Hyip():
 
     def setPlan(self, plan):
         self.plan = plan
+
+    def getDays_online(self):
+        return self.days_online
+
+    def setDays_online(self, days_online):
+        self.days_online = days_online
