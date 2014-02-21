@@ -27,6 +27,7 @@ import urllib2
 import __builtin__
 import sys
 import getopt
+from bs4 import BeautifulSoup
 from lxml import html, etree
 
 
@@ -149,7 +150,17 @@ if __name__ == "__main__":
         doc = html.parse(url)
         #print etree.tostring(doc)
         elements_c10 = doc.xpath('//table[@class="cl0"]')
-        scream.ssay(elements_c10)
+        scream.ssay(len(elements_c10))
+
+        for element in elements_c10:
+            scream.ssay('Parsing HYIP..')
+            local_soup = BeautifulSoup(etree.tostring(element))
+            small2 = local_soup.findAll("td", {"class": "small2"})
+            tabl0 = local_soup.findAll("td", {"class": "tabl0"})
+            cl2 = local_soup.findAll("td", {"class": "cl2"})
+            scream.ssay(small2)
+            scream.ssay(cl2)
+            scream.ssay(tabl0)
     elif method == 'urllib2':
         req = urllib2.Request(url)
         response = urllib2.urlopen(req)
