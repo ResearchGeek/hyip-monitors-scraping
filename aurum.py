@@ -118,6 +118,10 @@ def usage():
         print line
 
 
+goldpoll_url = 'http://www.goldpoll.com/'
+popularhyip_url = 'http://www.popularhyip.com/'
+
+
 if __name__ == "__main__":
     scream.say('Start main execution')
     scream.say(version_name)
@@ -144,10 +148,8 @@ if __name__ == "__main__":
         elif o in ("-m", "--method"):
             method = a
 
-    url = 'http://www.goldpoll.com/'
-
     if method == 'native':
-        doc = html.parse(url)
+        doc = html.parse(goldpoll_url)
         #print etree.tostring(doc)
         elements_c10 = doc.xpath('//table[@class="cl0"]')
         scream.ssay(len(elements_c10))
@@ -162,7 +164,7 @@ if __name__ == "__main__":
             scream.ssay(cl2)
             scream.ssay(tabl0)
     elif method == 'urllib2':
-        req = urllib2.Request(url)
+        req = urllib2.Request(goldpoll_url)
         response = urllib2.urlopen(req)
         the_page = response.read()
         webpage = the_page.decode("ISO-8859-1")
