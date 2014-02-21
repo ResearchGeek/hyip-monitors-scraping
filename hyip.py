@@ -22,6 +22,7 @@ class Hyip():
     min_deposit = None
     max_deposit = None
     referral_bonus = None
+    plan = None
 
     def setName(self, name):
         self.repository_name = name
@@ -34,3 +35,27 @@ class Hyip():
 
     def getUrl(self):
         return self.url
+
+    def getStatus(self):
+        return self.status
+
+    def setStatus(self, status):
+        self.status = status
+
+    def getMin_deposit(self):
+        return self.min_deposit
+
+    def setMin_deposit(self, min_deposit):
+        self.min_deposit = min_deposit
+
+    def getMax_deposit(self):
+        return self.max_deposit
+
+    def setMax_deposit(self, max_deposit):
+        self.max_deposit = max_deposit
+
+    def getPlan(self):
+        return self.status
+
+    def setPlan(self, plan):
+        self.plan = plan

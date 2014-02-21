@@ -22,7 +22,7 @@ import csv
 import scream
 import codecs
 import cStringIO
-import requests
+from hyip import Hyip
 import urllib2
 import __builtin__
 import sys
@@ -128,9 +128,10 @@ if __name__ == "__main__":
     scream.say('Program warming up, this should take just seconds..')
 
     method = 'native'
+    sites = None
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hm:v", ["help", "method=", "verbose"])
+        opts, args = getopt.getopt(sys.argv[1:], "hm:s:v", ["help", "method=", "sites=", "verbose"])
     except getopt.GetoptError as err:
         # print help information and exit:
         print str(err)  # will print something like "option -a not recognized"
@@ -147,6 +148,8 @@ if __name__ == "__main__":
             sys.exit()
         elif o in ("-m", "--method"):
             method = a
+        elif o in ("-s", "--sites"):
+            sites = a
 
     if method == 'native':
         doc = html.parse(goldpoll_url)
@@ -155,11 +158,24 @@ if __name__ == "__main__":
         scream.ssay(len(elements_c10))
 
         for element in elements_c10:
-            scream.ssay('Parsing HYIP..')
+            scream.say('')
+            scream.say('Parsing HYIP..')
+            hyip = Hyip()
+
             local_soup = BeautifulSoup(etree.tostring(element))
-            small2 = local_soup.findAll("td", {"class": "small2"})
-            tabl0 = local_soup.findAll("td", {"class": "tabl0"})
-            cl2 = local_soup.findAll("td", {"class": "cl2"})
+            hyip_name = local_soup.find("a", {"class": "nhyip"}).string
+            scream.say('Name: ' + hyip_name.strip())
+            hyip.setName(hyip_name.strip())
+
+            small2 = local_soup.find("td", {"class": "small2"}).contents
+            for content in small2:
+                scream.say(content.string)
+            tabl0 = local_soup.find("td", {"class": "tabl0"}).contents
+            for content in tabl0:
+                scream.say(content.string)
+            cl2 = local_soup.find("td", {"class": "cl2"}).contents
+            for content in cl2:
+                scream.say(content.string)
             scream.ssay(small2)
             scream.ssay(cl2)
             scream.ssay(tabl0)
