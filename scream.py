@@ -8,7 +8,7 @@ DISABLE__STD = False
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
 
-intelliAurom_verbose = True
+intelliAurom_verbose = False
 
 
 def log(s):
@@ -17,8 +17,7 @@ def log(s):
 
 
 def say(s):
-    if intelliAurom_verbose:
-        print s
+    print s
 
 
 def ssay(s):

@@ -1,0 +1,7 @@
+Usage exaple:
+-h --help
+brings this screen
+-method --method=name
+supported names : [native, urllib2]
+-v --verbose
+shows diagnostic messages

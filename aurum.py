@@ -22,16 +22,12 @@ import csv
 import scream
 import codecs
 import cStringIO
-import os
-import sys
-import urllib
+import requests
 import urllib2
-import simplejson
-import hashlib
-import mechanize
-import time
-from bs4 import BeautifulSoup
-import unicodedata
+import __builtin__
+import sys
+import getopt
+from lxml import html, etree
 
 
 class MyDialect(csv.Dialect):
@@ -114,6 +110,52 @@ class UnicodeWriter:
         for row in rows:
             self.writerow(row)
 
+
+def usage():
+    f = open('usage.txt', 'r')
+    for line in f:
+        print line
+
+
 if __name__ == "__main__":
     scream.say('Start main execution')
     scream.say(version_name)
+    scream.say('Program warming up, this should take just seconds..')
+
+    method = 'native'
+
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "hm:v", ["help", "method=", "verbose"])
+    except getopt.GetoptError as err:
+        # print help information and exit:
+        print str(err)  # will print something like "option -a not recognized"
+        usage()
+        sys.exit(2)
+
+    for o, a in opts:
+        if o in ("-v", "--verbose"):
+            __builtin__.verbose = True
+            scream.intelliAurom_verbose = True
+            scream.ssay('Enabling verbose mode.')
+        elif o in ("-h", "--help"):
+            usage()
+            sys.exit()
+        elif o in ("-m", "--method"):
+            method = a
+
+    url = 'http://www.goldpoll.com/'
+
+    if method == 'native':
+        doc = html.parse(url)
+        #print etree.tostring(doc)
+        elements_c10 = doc.xpath('//table[@class="cl0"]')
+        scream.ssay(elements_c10)
+    elif method == 'urllib2':
+        req = urllib2.Request(url)
+        response = urllib2.urlopen(req)
+        the_page = response.read()
+        webpage = the_page.decode("ISO-8859-1")
+        parser = etree.HTMLParser()
+        tree = etree.fromstring(webpage, parser)
+        elements_c10 = tree.xpath('//table[@class="cl0"]')
+        scream.ssay(elements_c10)
