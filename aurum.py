@@ -129,7 +129,7 @@ popularhyip_url = 'http://www.popularhyip.com/'
 def makeHeaders():
     with open(result_filename, 'ab') as result_csvfile:
             result_writer = UnicodeWriter(result_csvfile)
-            result_writer.writerow(['Name', 'Payouts', 'Life time',
+            result_writer.writerow(['Name', 'Status', 'Payouts', 'Life time',
                                    'Monitoring', 'Admin rate', 'User rate', 'Funds return',
                                    'Min deposit', 'Max deposit', 'Referral bonus'])
             result_csvfile.close()
@@ -138,7 +138,7 @@ def makeHeaders():
 def output(hyip):
     with open(result_filename, 'ab') as result_csvfile:
             result_writer = UnicodeWriter(result_csvfile)
-            result_writer.writerow([hyip.getName(), hyip.getPayouts(), hyip.getLife_time(),
+            result_writer.writerow([hyip.getName(), hyip.getStatus(), hyip.getPayouts(), hyip.getLife_time(),
                                    hyip.getMonitoring(), hyip.getAdmin_rate(), hyip.getUser_rate(), hyip.getFunds_return(),
                                    hyip.getMin_deposit(), hyip.getMax_deposit(), hyip.getReferral_bonus()])
             result_csvfile.close()
@@ -227,7 +227,19 @@ if __name__ == "__main__":
                     hyip.setReferral_bonus(tabl0[index].strip())
             cl2 = local_soup.find("td", {"class": "cl2"}).contents
             for content in cl2:
-                scream.ssay('cl2' + str(content.string))
+                scream.ssay('cl2: ' + str(content.string))
+                if (content.string is not None) and ('not paid' in content.string):
+                    index = cl2.index(content) + 1
+                    hyip.setStatus('NOT PAYING')
+                if (content.string is not None) and ('problem' in content.string):
+                    index = cl2.index(content) + 1
+                    hyip.setStatus('PROBLEM')
+                if (content.string is not None) and ('waiting' in content.string):
+                    index = cl2.index(content) + 1
+                    hyip.setStatus('WAITING')
+                if (content.string is not None) and ('paying' in content.string):
+                    index = cl2.index(content) + 1
+                    hyip.setStatus('PAYING')
             scream.ssay(small2)
             scream.ssay(cl2)
             scream.ssay(tabl0)
