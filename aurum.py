@@ -30,6 +30,7 @@ from bs4 import BeautifulSoup
 from lxml import html, etree
 import datetime
 import requests
+import urlparse
 
 
 today = datetime.date.today()
@@ -40,7 +41,7 @@ class MyDialect(csv.Dialect):
     strict = True
     skipinitialspace = True
     quoting = csv.QUOTE_MINIMAL
-    delimiter = ','
+    delimiter = ';'
     escapechar = '\\'
     quotechar = '"'
     lineterminator = '\n'
@@ -130,7 +131,7 @@ popularhyip_url = 'http://www.popularhyip.com/'
 def makeHeaders():
     with open(result_filename, 'ab') as result_csvfile:
             result_writer = UnicodeWriter(result_csvfile)
-            result_writer.writerow(['Name', 'Status', 'URL', 'Payouts', 'Life time',
+            result_writer.writerow(['Name', 'Status', 'URL', 'Clean URL', 'Payouts', 'Life time',
                                    'Monitoring', 'Admin rate', 'User rate', 'Funds return',
                                    'Min deposit', 'Max deposit', 'Referral bonus'])
             result_csvfile.close()
@@ -139,7 +140,8 @@ def makeHeaders():
 def output(hyip):
     with open(result_filename, 'ab') as result_csvfile:
             result_writer = UnicodeWriter(result_csvfile)
-            result_writer.writerow([hyip.getName(), hyip.getStatus(), hyip.getUrl(), hyip.getPayouts(), hyip.getLife_time(),
+            result_writer.writerow([hyip.getName(), hyip.getStatus(), hyip.getUrl(),
+                                   'http://' + urlparse.urlparse(hyip.getUrl()).netloc, hyip.getPayouts(), hyip.getLife_time(),
                                    hyip.getMonitoring(), hyip.getAdmin_rate(), hyip.getUser_rate(), hyip.getFunds_return(),
                                    hyip.getMin_deposit(), hyip.getMax_deposit(), hyip.getReferral_bonus()])
             result_csvfile.close()
