@@ -129,7 +129,7 @@ popularhyip_url = 'http://www.popularhyip.com/'
 def output(hyip):
     with open(result_filename, 'ab') as result_csvfile:
             result_writer = UnicodeWriter(result_csvfile)
-            result_writer.writerow([hyip.getName(), hyip.getLife_time(), hyip.getMonitoring()])
+            result_writer.writerow([hyip.getName(), hyip.getLife_time(), hyip.getMonitoring(), hyip.getAdmin_rate(), hyip.getUser_rate()])
             result_csvfile.close()
 
 
@@ -188,6 +188,12 @@ if __name__ == "__main__":
                 if (content.string is not None) and ('monitoring' in content.string):
                     index = small2.index(content) + 1
                     hyip.setMonitoring(small2[index].strip())
+                if (content.string is not None) and ('admin rate' in content.string):
+                    index = small2.index(content) + 1
+                    hyip.setAdmin_rate(small2[index].strip())
+                if (content.string is not None) and ('user rate' in content.string):
+                    index = small2.index(content) + 1
+                    hyip.setUser_rate(small2[index].strip())
             tabl0 = local_soup.find("td", {"class": "tabl0"}).contents
             for content in tabl0:
                 scream.ssay('tabl0 found:' + str(content.string))

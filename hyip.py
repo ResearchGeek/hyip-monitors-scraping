@@ -48,6 +48,18 @@ class Hyip():
     def setMonitoring(self, monitoring):
         self.monitoring = monitoring
 
+    def getAdmin_rate(self):
+        return self.admin_rate
+
+    def setAdmin_rate(self, admin_rate):
+        self.admin_rate = admin_rate
+
+    def getUser_rate(self):
+        return self.user_rate
+
+    def setUser_rate(self, user_rate):
+        self.user_rate = user_rate
+
     def setUrl(self, url):
         self.url = url
 
