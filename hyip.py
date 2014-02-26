@@ -42,6 +42,12 @@ class Hyip():
     def setLife_time(self, life_time):
         self.life_time = life_time
 
+    def getMonitoring(self):
+        return self.monitoring
+
+    def setMonitoring(self, monitoring):
+        self.monitoring = monitoring
+
     def setUrl(self, url):
         self.url = url
 
