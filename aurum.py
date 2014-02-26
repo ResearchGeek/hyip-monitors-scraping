@@ -126,10 +126,21 @@ goldpoll_url = 'http://www.goldpoll.com/'
 popularhyip_url = 'http://www.popularhyip.com/'
 
 
+def makeHeaders():
+    with open(result_filename, 'ab') as result_csvfile:
+            result_writer = UnicodeWriter(result_csvfile)
+            result_writer.writerow(['Name', 'Payouts', 'Life time',
+                                   'Monitoring', 'Admin rate', 'User rate', 'Funds return',
+                                   'Min deposit', 'Max deposit', 'Referral bonus'])
+            result_csvfile.close()
+
+
 def output(hyip):
     with open(result_filename, 'ab') as result_csvfile:
             result_writer = UnicodeWriter(result_csvfile)
-            result_writer.writerow([hyip.getName(), hyip.getLife_time(), hyip.getMonitoring(), hyip.getAdmin_rate(), hyip.getUser_rate()])
+            result_writer.writerow([hyip.getName(), hyip.getPayouts(), hyip.getLife_time(),
+                                   hyip.getMonitoring(), hyip.getAdmin_rate(), hyip.getUser_rate(), hyip.getFunds_return(),
+                                   hyip.getMin_deposit(), hyip.getMax_deposit(), hyip.getReferral_bonus()])
             result_csvfile.close()
 
 
@@ -161,6 +172,8 @@ if __name__ == "__main__":
             method = a
         elif o in ("-s", "--sites"):
             sites = a
+
+    makeHeaders()
 
     if method == 'native':
         doc = html.parse(goldpoll_url)
@@ -194,9 +207,24 @@ if __name__ == "__main__":
                 if (content.string is not None) and ('user rate' in content.string):
                     index = small2.index(content) + 1
                     hyip.setUser_rate(small2[index].strip())
+                if (content.string is not None) and ('funds return' in content.string):
+                    index = small2.index(content) + 1
+                    hyip.setFunds_return(small2[index].strip())
             tabl0 = local_soup.find("td", {"class": "tabl0"}).contents
             for content in tabl0:
                 scream.ssay('tabl0 found:' + str(content.string))
+                if (content.string is not None) and ('payouts' in content.string):
+                    index = tabl0.index(content) + 1
+                    hyip.setPayouts(tabl0[index].strip())
+                if (content.string is not None) and ('min deposit' in content.string):
+                    index = tabl0.index(content) + 1
+                    hyip.setMin_deposit(tabl0[index].strip())
+                if (content.string is not None) and ('max deposit' in content.string):
+                    index = tabl0.index(content) + 1
+                    hyip.setMax_deposit(tabl0[index].strip())
+                if (content.string is not None) and ('referral bonus' in content.string):
+                    index = tabl0.index(content) + 1
+                    hyip.setReferral_bonus(tabl0[index].strip())
             cl2 = local_soup.find("td", {"class": "cl2"}).contents
             for content in cl2:
                 scream.ssay('cl2' + str(content.string))

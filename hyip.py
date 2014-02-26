@@ -48,6 +48,12 @@ class Hyip():
     def setMonitoring(self, monitoring):
         self.monitoring = monitoring
 
+    def getPayouts(self):
+        return self.payouts
+
+    def setPayouts(self, payouts):
+        self.payouts = payouts
+
     def getAdmin_rate(self):
         return self.admin_rate
 
@@ -59,6 +65,12 @@ class Hyip():
 
     def setUser_rate(self, user_rate):
         self.user_rate = user_rate
+
+    def getFunds_return(self):
+        return self.funds_return
+
+    def setFunds_return(self, funds_return):
+        self.funds_return = funds_return
 
     def setUrl(self, url):
         self.url = url
@@ -83,6 +95,12 @@ class Hyip():
 
     def setMax_deposit(self, max_deposit):
         self.max_deposit = max_deposit
+
+    def getReferral_bonus(self):
+        return self.referral_bonus
+
+    def setReferral_bonus(self, referral_bonus):
+        self.referral_bonus = referral_bonus
 
     def getPlan(self):
         return self.status
