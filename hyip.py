@@ -8,11 +8,8 @@ Represents a single Hyip being
 
 class Hyip():
 
-    element_type = 'Hyip'
-    key = None
-
     def __init__(self):
-        self.data = []
+        self.payment_methods = []
 
     name = None
     url = None
@@ -29,6 +26,7 @@ class Hyip():
     referral_bonus = None
     plan = None
     days_online = None
+    payment_methods = None
 
     def getName(self):
         return self.repository_name
@@ -113,3 +111,12 @@ class Hyip():
 
     def setDays_online(self, days_online):
         self.days_online = days_online
+
+    def getPayment_methods(self):
+        return self.payment_methods
+
+    def setPayment_methods(self, payment_methods):
+        self.payment_methods = payment_methods
+
+    def addPayment_method(self, payment_method):
+        self.payment_methods.append(payment_method)

@@ -41,7 +41,7 @@ class MyDialect(csv.Dialect):
     strict = True
     skipinitialspace = True
     quoting = csv.QUOTE_MINIMAL
-    delimiter = ';'
+    delimiter = ','
     escapechar = '\\'
     quotechar = '"'
     lineterminator = '\n'
@@ -131,9 +131,11 @@ popularhyip_url = 'http://www.popularhyip.com/'
 def makeHeaders():
     with open(result_filename, 'ab') as result_csvfile:
             result_writer = UnicodeWriter(result_csvfile)
+            if add_delimiter_info:
+                result_writer.writerow(['sep=' + MyDialect.delimiter])
             result_writer.writerow(['Name', 'Status', 'URL', 'Clean URL', 'Payouts', 'Life time',
                                    'Monitoring', 'Admin rate', 'User rate', 'Funds return',
-                                   'Min deposit', 'Max deposit', 'Referral bonus'])
+                                   'Min deposit', 'Max deposit', 'Referral bonus', 'Payment methods'])
             result_csvfile.close()
 
 
@@ -143,7 +145,7 @@ def output(hyip):
             result_writer.writerow([hyip.getName(), hyip.getStatus(), hyip.getUrl(),
                                    'http://' + urlparse.urlparse(hyip.getUrl()).netloc, hyip.getPayouts(), hyip.getLife_time(),
                                    hyip.getMonitoring(), hyip.getAdmin_rate(), hyip.getUser_rate(), hyip.getFunds_return(),
-                                   hyip.getMin_deposit(), hyip.getMax_deposit(), hyip.getReferral_bonus()])
+                                   hyip.getMin_deposit(), hyip.getMax_deposit(), hyip.getReferral_bonus(), str(hyip.getPayment_methods())])
             result_csvfile.close()
 
 
@@ -168,9 +170,10 @@ if __name__ == "__main__":
 
     method = 'native'
     sites = None
+    add_delimiter_info = False
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hm:s:v", ["help", "method=", "sites=", "verbose"])
+        opts, args = getopt.getopt(sys.argv[1:], "hm:s:vd", ["help", "method=", "sites=", "verbose", "delimiter"])
     except getopt.GetoptError as err:
         # print help information and exit:
         print str(err)  # will print something like "option -a not recognized"
@@ -185,6 +188,8 @@ if __name__ == "__main__":
         elif o in ("-h", "--help"):
             usage()
             sys.exit()
+        elif o in ("-d", "--delimiter"):
+            add_delimiter_info = True
         elif o in ("-m", "--method"):
             method = a
         elif o in ("-s", "--sites"):
@@ -222,7 +227,7 @@ if __name__ == "__main__":
                     final_redirect = redirect.headers.get('location')
             except:
                 #redirect broken, must quit
-                print 'redirects resolved'
+                scream.ssay('redirects resolved')
             finally:
                 if final_redirect is None:
                     final_redirect = location_found
@@ -278,6 +283,40 @@ if __name__ == "__main__":
                 if (content.string is not None) and ('paying' in content.string):
                     index = cl2.index(content) + 1
                     hyip.setStatus('PAYING')
+            cl3_candidate = local_soup.find("td", {"class": "cl3"})
+            if cl3_candidate is None:
+                cl3 = local_soup.find("td", {"width": "43"}).contents
+            else:
+                cl3 = cl3_candidate.contents
+            #scream.ssay(cl3)
+            for content in cl3:
+                #scream.ssay('cl3: ' + str(content.string))
+                scream.ssay(content.attrs)
+                if 'src' in content.attrs:
+                    #scream.ssay('payment method found')
+                    if (content['src'] is not None) and ('ego' in content['src']):
+                        #index = cl2.index(content) + 1
+                        hyip.addPayment_method('Ego')
+                    elif (content['src'] is not None) and ('paypal' in content['src']):
+                        #index = cl2.index(content) + 1
+                        hyip.addPayment_method('Paypal')
+                    elif (content['src'] is not None) and ('payza' in content['src']):
+                        #index = cl2.index(content) + 1
+                        hyip.addPayment_method('Payza')
+                    elif (content['src'] is not None) and ('perfectm' in content['src']):
+                        #index = cl2.index(content) + 1
+                        hyip.addPayment_method('PerfectM')
+                    elif (content['src'] is not None) and ('stp' in content['src']):
+                        #index = cl2.index(content) + 1
+                        hyip.addPayment_method('Stp')
+                    elif (content['src'] is not None) and ('pecunix' in content['src']):
+                        #index = cl2.index(content) + 1
+                        hyip.addPayment_method('Pecunix')
+                    elif (content['src'] is not None) and ('/small.gif' in content['src']):
+                        #index = cl2.index(content) + 1
+                        hyip.addPayment_method('Bankwire')
+                else:
+                    scream.ssay('payment methods parsed')
             scream.ssay(small2)
             scream.ssay(cl2)
             scream.ssay(tabl0)
