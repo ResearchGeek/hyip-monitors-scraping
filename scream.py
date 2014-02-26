@@ -4,11 +4,9 @@ import logging.handlers
 import logging.config
 
 DISABLE__STD = False
-
+intelliAurom_verbose = False
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
-
-intelliAurom_verbose = False
 
 
 def log(s):

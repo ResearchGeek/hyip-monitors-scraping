@@ -16,7 +16,6 @@ surface can never be touched.
 '''
 
 version_name = 'version 1.0 codename: Midnight'
-pull_request_filename = 'hyip.csv'
 
 import csv
 import scream
@@ -29,6 +28,11 @@ import sys
 import getopt
 from bs4 import BeautifulSoup
 from lxml import html, etree
+import datetime
+
+
+today = datetime.date.today()
+result_filename = 'hyip' + today.strftime('-%d-%b-%Y') + '.csv'
 
 
 class MyDialect(csv.Dialect):
@@ -122,6 +126,13 @@ goldpoll_url = 'http://www.goldpoll.com/'
 popularhyip_url = 'http://www.popularhyip.com/'
 
 
+def output(hyip):
+    with open(result_filename, 'ab') as result_csvfile:
+            result_writer = UnicodeWriter(result_csvfile)
+            result_writer.writerow([hyip.getName()])
+            result_csvfile.close()
+
+
 if __name__ == "__main__":
     scream.say('Start main execution')
     scream.say(version_name)
@@ -142,7 +153,7 @@ if __name__ == "__main__":
         if o in ("-v", "--verbose"):
             __builtin__.verbose = True
             scream.intelliAurom_verbose = True
-            scream.ssay('Enabling verbose mode.')
+            scream.say('Enabling verbose mode.')
         elif o in ("-h", "--help"):
             usage()
             sys.exit()
@@ -158,8 +169,8 @@ if __name__ == "__main__":
         scream.ssay(len(elements_c10))
 
         for element in elements_c10:
-            scream.say('')
-            scream.say('Parsing HYIP..')
+            scream.ssay('')
+            scream.ssay('Parsing HYIP..')
             hyip = Hyip()
 
             local_soup = BeautifulSoup(etree.tostring(element))
@@ -169,16 +180,18 @@ if __name__ == "__main__":
 
             small2 = local_soup.find("td", {"class": "small2"}).contents
             for content in small2:
-                scream.say(content.string)
+                scream.ssay('small2 found:' + str(content.string))
             tabl0 = local_soup.find("td", {"class": "tabl0"}).contents
             for content in tabl0:
-                scream.say(content.string)
+                scream.ssay('tabl0 found:' + str(content.string))
             cl2 = local_soup.find("td", {"class": "cl2"}).contents
             for content in cl2:
-                scream.say(content.string)
+                scream.ssay('cl2' + str(content.string))
             scream.ssay(small2)
             scream.ssay(cl2)
             scream.ssay(tabl0)
+
+            output(hyip)
     elif method == 'urllib2':
         req = urllib2.Request(goldpoll_url)
         response = urllib2.urlopen(req)

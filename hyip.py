@@ -21,15 +21,26 @@ class Hyip():
     payouts = None
     min_deposit = None
     max_deposit = None
+    life_time = None
+    monitoring = None
+    admin_rate = None
+    user_rate = None
+    funds_return = None
     referral_bonus = None
     plan = None
     days_online = None
 
+    def getName(self):
+        return self.repository_name
+
     def setName(self, name):
         self.repository_name = name
 
-    def getName(self):
-        return self.repository_name
+    def getLife_time(self):
+        return self.life_time
+
+    def setLife_time(self, life_time):
+        self.life_time = life_time
 
     def setUrl(self, url):
         self.url = url
