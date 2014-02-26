@@ -29,6 +29,7 @@ import getopt
 from bs4 import BeautifulSoup
 from lxml import html, etree
 import datetime
+import requests
 
 
 today = datetime.date.today()
@@ -129,7 +130,7 @@ popularhyip_url = 'http://www.popularhyip.com/'
 def makeHeaders():
     with open(result_filename, 'ab') as result_csvfile:
             result_writer = UnicodeWriter(result_csvfile)
-            result_writer.writerow(['Name', 'Status', 'Payouts', 'Life time',
+            result_writer.writerow(['Name', 'Status', 'URL', 'Payouts', 'Life time',
                                    'Monitoring', 'Admin rate', 'User rate', 'Funds return',
                                    'Min deposit', 'Max deposit', 'Referral bonus'])
             result_csvfile.close()
@@ -138,10 +139,24 @@ def makeHeaders():
 def output(hyip):
     with open(result_filename, 'ab') as result_csvfile:
             result_writer = UnicodeWriter(result_csvfile)
-            result_writer.writerow([hyip.getName(), hyip.getStatus(), hyip.getPayouts(), hyip.getLife_time(),
+            result_writer.writerow([hyip.getName(), hyip.getStatus(), hyip.getUrl(), hyip.getPayouts(), hyip.getLife_time(),
                                    hyip.getMonitoring(), hyip.getAdmin_rate(), hyip.getUser_rate(), hyip.getFunds_return(),
                                    hyip.getMin_deposit(), hyip.getMax_deposit(), hyip.getReferral_bonus()])
             result_csvfile.close()
+
+
+#class MyHTTPErrorProcessor(urllib2.HTTPErrorProcessor):
+#    def http_response(self, request, response):
+#        code, msg, hdrs = response.code, response.msg, response.info()
+#        # only add this line to stop 302 redirection.
+#        print response
+#        if code == 302: return response
+#        if not (200 <= code < 300):
+#            response = self.parent.error(
+#             'http', request, response, code, msg, hdrs)
+#         print response
+#     return response
+# https_response = http_response
 
 
 if __name__ == "__main__":
@@ -187,9 +202,30 @@ if __name__ == "__main__":
             hyip = Hyip()
 
             local_soup = BeautifulSoup(etree.tostring(element))
-            hyip_name = local_soup.find("a", {"class": "nhyip"}).string
+            hyip_name_tag = local_soup.find("a", {"class": "nhyip"})
+            hyip_name = hyip_name_tag.string
+            hyip_url = 'http://www.goldpoll.com' + hyip_name_tag['href']
             scream.say('Name: ' + hyip_name.strip())
+            scream.say('URL: ' + hyip_url)
             hyip.setName(hyip_name.strip())
+
+            session = requests.session()
+            a = requests.adapters.HTTPAdapter(max_retries=5)
+            session.mount('http://', a)
+            r = session.get(hyip_url, allow_redirects=False)
+            location_found = r.headers.get('location')
+            final_redirect = None
+            try:
+                for redirect in session.resolve_redirects(r, r.request):
+                    final_redirect = redirect.headers.get('location')
+            except:
+                #redirect broken, must quit
+                print 'redirects resolved'
+            finally:
+                if final_redirect is None:
+                    final_redirect = location_found
+            scream.ssay(final_redirect)
+            hyip.setUrl(final_redirect)
 
             small2 = local_soup.find("td", {"class": "small2"}).contents
             for content in small2:
@@ -246,11 +282,21 @@ if __name__ == "__main__":
 
             output(hyip)
     elif method == 'urllib2':
+        print 'Currently unsupported.. must exit, sorry'
+        exit(1)
+
         req = urllib2.Request(goldpoll_url)
         response = urllib2.urlopen(req)
         the_page = response.read()
         webpage = the_page.decode("ISO-8859-1")
         parser = etree.HTMLParser()
+
+        #jar = cookielib.FileCookieJar("cookies")
+        #opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar))
+        #response = opener.open(hyip_url)
+        #print response
+        #exit(1)
+
         tree = etree.fromstring(webpage, parser)
         elements_c10 = tree.xpath('//table[@class="cl0"]')
         scream.ssay(elements_c10)
