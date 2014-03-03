@@ -37,6 +37,20 @@ today = datetime.date.today()
 result_filename = 'hyip' + today.strftime('-%d-%b-%Y') + '.csv'
 
 
+def isWindows():
+    if sys.platform.startswith('win'):
+        return True
+    else:
+        return False
+
+
+def isLinux():
+    if sys.platform.startswith('linux'):
+        return True
+    else:
+        return False
+
+
 class MyDialect(csv.Dialect):
     strict = True
     skipinitialspace = True
@@ -346,7 +360,8 @@ if __name__ == "__main__":
             scream.ssay(elements_c10)
     if 'popularhyip' in sites:
         if method == 'static':
-            doc = html.parse('input\\PopularHYIP-gecko.htm')
+            dir_separator = ('\\' if isWindows() else '/')
+            doc = html.parse('input' + dir_separator + 'PopularHYIP-gecko.htm')
             #print etree.tostring(doc)
             elements_status1 = doc.xpath('//tr[@class="status1" and (not(@id))]')
             scream.ssay(len(elements_status1))
