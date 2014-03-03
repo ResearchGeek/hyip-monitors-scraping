@@ -347,14 +347,138 @@ if __name__ == "__main__":
         if method == 'static':
             doc = html.parse('input\\PopularHYIP-gecko.htm')
             #print etree.tostring(doc)
-            elements_status1 = doc.xpath('//tr[@class="status1"]')
+            elements_status1 = doc.xpath('//tr[@class="status1" and (not(@id))]')
             scream.ssay(len(elements_status1))
-            elements_status2 = doc.xpath('//tr[@class="status2"]')
+            for element in elements_status1:
+                scream.ssay('')
+                scream.ssay('Parsing HYIP..')
+                hyip = Hyip()
+
+                local_soup = BeautifulSoup(etree.tostring(element))
+                hyip_name_tag = local_soup.find("div", {"class": "ramka"})
+                hyip_name = hyip_name_tag.contents[0].string
+                hyip_url_onclick = hyip_name_tag['onclick'].split('\'')
+                hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
+                scream.say('Name: ' + hyip_name.strip())
+                scream.say('URL: ' + hyip_url)
+                hyip.setName(hyip_name.strip())
+
+                session = requests.session()
+                a = requests.adapters.HTTPAdapter(max_retries=5)
+                session.mount('http://', a)
+                r = session.get(hyip_url, allow_redirects=False)
+                location_found = r.headers.get('location')
+                final_redirect = None
+                try:
+                    for redirect in session.resolve_redirects(r, r.request):
+                        final_redirect = redirect.headers.get('location')
+                except:
+                    #redirect broken, must quit
+                    scream.ssay('redirects resolved')
+                finally:
+                    if final_redirect is None:
+                        final_redirect = location_found
+                scream.ssay(final_redirect)
+                hyip.setUrl(final_redirect)
+            elements_status2 = doc.xpath('//tr[@class="status2" and (not(@id))]')
             scream.ssay(len(elements_status2))
-            elements_status3 = doc.xpath('//tr[@class="status3"]')
+            for element in elements_status2:
+                scream.ssay('')
+                scream.ssay('Parsing HYIP..')
+                hyip = Hyip()
+
+                local_soup = BeautifulSoup(etree.tostring(element))
+                hyip_name_tag = local_soup.find("div", {"class": "ramka"})
+                hyip_name = hyip_name_tag.contents[0].string
+                hyip_url_onclick = hyip_name_tag['onclick'].split('\'')
+                hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
+                scream.say('Name: ' + hyip_name.strip())
+                scream.say('URL: ' + hyip_url)
+                hyip.setName(hyip_name.strip())
+
+                session = requests.session()
+                a = requests.adapters.HTTPAdapter(max_retries=5)
+                session.mount('http://', a)
+                r = session.get(hyip_url, allow_redirects=False)
+                location_found = r.headers.get('location')
+                final_redirect = None
+                try:
+                    for redirect in session.resolve_redirects(r, r.request):
+                        final_redirect = redirect.headers.get('location')
+                except:
+                    #redirect broken, must quit
+                    scream.ssay('redirects resolved')
+                finally:
+                    if final_redirect is None:
+                        final_redirect = location_found
+                scream.ssay(final_redirect)
+                hyip.setUrl(final_redirect)
+            elements_status3 = doc.xpath('//tr[@class="status3" and (not(@id))]')
             scream.ssay(len(elements_status3))
-            elements_status4 = doc.xpath('//tr[@class="status4"]')
+            for element in elements_status3:
+                scream.ssay('')
+                scream.ssay('Parsing HYIP..')
+                hyip = Hyip()
+
+                local_soup = BeautifulSoup(etree.tostring(element))
+                hyip_name_tag = local_soup.find("div", {"class": "ramka"})
+                hyip_name = hyip_name_tag.contents[0].string
+                hyip_url_onclick = hyip_name_tag['onclick'].split('\'')
+                hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
+                scream.say('Name: ' + hyip_name.strip())
+                scream.say('URL: ' + hyip_url)
+                hyip.setName(hyip_name.strip())
+
+                session = requests.session()
+                a = requests.adapters.HTTPAdapter(max_retries=5)
+                session.mount('http://', a)
+                r = session.get(hyip_url, allow_redirects=False)
+                location_found = r.headers.get('location')
+                final_redirect = None
+                try:
+                    for redirect in session.resolve_redirects(r, r.request):
+                        final_redirect = redirect.headers.get('location')
+                except:
+                    #redirect broken, must quit
+                    scream.ssay('redirects resolved')
+                finally:
+                    if final_redirect is None:
+                        final_redirect = location_found
+                scream.ssay(final_redirect)
+                hyip.setUrl(final_redirect)
+            elements_status4 = doc.xpath('//tr[@class="status4" and (not(@id))]')
             scream.ssay(len(elements_status4))
+            for element in elements_status4:
+                scream.ssay('')
+                scream.ssay('Parsing HYIP..')
+                hyip = Hyip()
+
+                local_soup = BeautifulSoup(etree.tostring(element))
+                hyip_name_tag = local_soup.find("div", {"class": "ramka"})
+                hyip_name = hyip_name_tag.contents[0].string
+                hyip_url_onclick = hyip_name_tag['onclick'].split('\'')
+                hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
+                scream.say('Name: ' + hyip_name.strip())
+                scream.say('URL: ' + hyip_url)
+                hyip.setName(hyip_name.strip())
+
+                session = requests.session()
+                a = requests.adapters.HTTPAdapter(max_retries=5)
+                session.mount('http://', a)
+                r = session.get(hyip_url, allow_redirects=False)
+                location_found = r.headers.get('location')
+                final_redirect = None
+                try:
+                    for redirect in session.resolve_redirects(r, r.request):
+                        final_redirect = redirect.headers.get('location')
+                except:
+                    #redirect broken, must quit
+                    scream.ssay('redirects resolved')
+                finally:
+                    if final_redirect is None:
+                        final_redirect = location_found
+                scream.ssay(final_redirect)
+                hyip.setUrl(final_redirect)
         elif method == 'native':
             scream.log('Not supported yet! Use static or dont define @method at all')
             exit(1)
