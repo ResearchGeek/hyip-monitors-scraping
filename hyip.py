@@ -31,6 +31,8 @@ class Hyip():
     payment_methods = None
     principal_return = None
     withdraw_type = None
+    ssl = None
+    ddos_protect = None
 
     def getName(self):
         return self.repository_name
@@ -129,10 +131,22 @@ class Hyip():
         self.referral_bonus = referral_bonus
 
     def getPlan(self):
-        return self.status
+        return self.plan
 
     def setPlan(self, plan):
         self.plan = plan
+
+    def getSsl(self):
+        return self.ssl
+
+    def setSsl(self, ssl):
+        self.ssl = ssl
+
+    def getDdos_protect(self):
+        return self.ddos_protect
+
+    def setDdos_protect(self, ddos_protect):
+        self.ddos_protect = ddos_protect
 
     def getDays_online(self):
         return self.days_online

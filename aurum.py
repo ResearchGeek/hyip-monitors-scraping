@@ -364,6 +364,7 @@ if __name__ == "__main__":
                 scream.say('Name: ' + hyip_name.strip())
                 scream.say('URL: ' + hyip_url)
                 hyip.setName(hyip_name.strip())
+                scream.say(hyip_plan.strip())
                 hyip.setPlan(hyip_plan.strip())
 
                 session = requests.session()
@@ -390,10 +391,40 @@ if __name__ == "__main__":
                     scream.say(i.contents)
                 hyip.setUser_rate(informations[2].contents[0].string.strip())
                 hyip.setPayouts(informations[3].contents[0].contents[0].string.strip())
-                hyip.setPeriod(informations[4].contents[0].string.strip())
+                hyip.setMonitoring(informations[4].contents[0].string.strip())
                 hyip.setPlan_details(informations[5].contents[0].string.strip())
                 hyip.setPrincipal_return(informations[6].contents[0].string.strip())
                 hyip.setWithdraw_type(informations[7].contents[0].string.strip())
+
+                hyip.setDays_online(informations[8].contents[0].string.strip())
+                hyip.setMin_deposit(informations[10].contents[0].string.strip())
+                hyip.setMax_deposit(informations[11].contents[0].string.strip())
+                hyip.setReferral_bonus(informations[12].contents[0].string.strip())
+
+                hyip.setSsl(informations[15].contents[0].string.strip())
+                hyip.setDdos_protect(informations[14].contents[0].string.strip())
+                for payi in informations[16].contents:
+                    scream.ssay(payi.attrs)
+                    if 'pm2' in payi['class']:
+                        hyip.addPayment_method('PerfectM')
+                    elif 'pm3' in payi['class']:
+                        hyip.addPayment_method('Bankwire')
+                    elif 'pm4' in payi['class']:
+                        hyip.addPayment_method('BitCoin')
+                    elif 'pm5' in payi['class']:
+                        hyip.addPayment_method('Ego')
+                    elif 'pm6' in payi['class']:
+                        hyip.addPayment_method('Stp')
+                    elif 'pm7' in payi['class']:
+                        hyip.addPayment_method('Payza')
+                scream.say(hyip.getPayment_methods())
+
+                hyip.setLife_time('N/A')
+                # get a "lifetime" from the "view full details"
+
+                hyip.setFunds_return('N/A')
+                hyip.setAdmin_rate('N/A')
+                output(hyip)
             elements_status2 = doc.xpath('//tr[@class="status2" and (not(@id))]')
             scream.ssay(len(elements_status2))
             for element in elements_status2:
@@ -436,10 +467,38 @@ if __name__ == "__main__":
                     scream.say(i.contents)
                 hyip.setUser_rate(informations[2].contents[0].string.strip())
                 hyip.setPayouts(informations[3].contents[0].contents[0].string.strip())
-                hyip.setPeriod(informations[4].contents[0].string.strip())
+                hyip.setMonitoring(informations[4].contents[0].string.strip())
                 hyip.setPlan_details(informations[5].contents[0].string.strip())
                 hyip.setPrincipal_return(informations[6].contents[0].string.strip())
                 hyip.setWithdraw_type(informations[7].contents[0].string.strip())
+
+                hyip.setDays_online(informations[8].contents[0].string.strip())
+                hyip.setMin_deposit(informations[10].contents[0].string.strip())
+                hyip.setMax_deposit(informations[11].contents[0].string.strip())
+
+                hyip.setSsl(informations[15].contents[0].string.strip())
+                hyip.setDdos_protect(informations[14].contents[0].string.strip())
+                for payi in informations[16].contents:
+                    scream.ssay(payi.attrs)
+                    if 'pm2' in payi['class']:
+                        hyip.addPayment_method('PerfectM')
+                    elif 'pm3' in payi['class']:
+                        hyip.addPayment_method('Bankwire')
+                    elif 'pm4' in payi['class']:
+                        hyip.addPayment_method('BitCoin')
+                    elif 'pm5' in payi['class']:
+                        hyip.addPayment_method('Ego')
+                    elif 'pm6' in payi['class']:
+                        hyip.addPayment_method('Stp')
+                    elif 'pm7' in payi['class']:
+                        hyip.addPayment_method('Payza')
+                scream.say(hyip.getPayment_methods())
+                hyip.setLife_time('N/A')
+                # get a "lifetime" from the "view full details"
+
+                hyip.setFunds_return('N/A')
+                hyip.setAdmin_rate('N/A')
+                output(hyip)
             elements_status3 = doc.xpath('//tr[@class="status3" and (not(@id))]')
             scream.ssay(len(elements_status3))
             for element in elements_status3:
@@ -482,10 +541,38 @@ if __name__ == "__main__":
                     scream.say(i.contents)
                 hyip.setUser_rate(informations[2].contents[0].string.strip())
                 hyip.setPayouts(informations[3].contents[0].contents[0].string.strip())
-                hyip.setPeriod(informations[4].contents[0].string.strip())
+                hyip.setMonitoring(informations[4].contents[0].string.strip())
                 hyip.setPlan_details(informations[5].contents[0].string.strip())
                 hyip.setPrincipal_return(informations[6].contents[0].string.strip())
                 hyip.setWithdraw_type(informations[7].contents[0].string.strip())
+
+                hyip.setDays_online(informations[8].contents[0].string.strip())
+                hyip.setMin_deposit(informations[10].contents[0].string.strip())
+                hyip.setMax_deposit(informations[11].contents[0].string.strip())
+
+                hyip.setSsl(informations[15].contents[0].string.strip())
+                hyip.setDdos_protect(informations[14].contents[0].string.strip())
+                for payi in informations[16].contents:
+                    scream.ssay(payi.attrs)
+                    if 'pm2' in payi['class']:
+                        hyip.addPayment_method('PerfectM')
+                    elif 'pm3' in payi['class']:
+                        hyip.addPayment_method('Bankwire')
+                    elif 'pm4' in payi['class']:
+                        hyip.addPayment_method('BitCoin')
+                    elif 'pm5' in payi['class']:
+                        hyip.addPayment_method('Ego')
+                    elif 'pm6' in payi['class']:
+                        hyip.addPayment_method('Stp')
+                    elif 'pm7' in payi['class']:
+                        hyip.addPayment_method('Payza')
+                scream.say(hyip.getPayment_methods())
+                hyip.setLife_time('N/A')
+                # get a "lifetime" from the "view full details"
+
+                hyip.setFunds_return('N/A')
+                hyip.setAdmin_rate('N/A')
+                output(hyip)
             elements_status4 = doc.xpath('//tr[@class="status4" and (not(@id))]')
             scream.ssay(len(elements_status4))
             for element in elements_status4:
@@ -528,10 +615,38 @@ if __name__ == "__main__":
                     scream.say(i.contents)
                 hyip.setUser_rate(informations[2].contents[0].string.strip())
                 hyip.setPayouts(informations[3].contents[0].contents[0].string.strip())
-                hyip.setPeriod(informations[4].contents[0].string.strip())
+                hyip.setMonitoring(informations[4].contents[0].string.strip())
                 hyip.setPlan_details(informations[5].contents[0].string.strip())
                 hyip.setPrincipal_return(informations[6].contents[0].string.strip())
                 hyip.setWithdraw_type(informations[7].contents[0].string.strip())
+
+                hyip.setDays_online(informations[8].contents[0].string.strip())
+                hyip.setMin_deposit(informations[10].contents[0].string.strip())
+                hyip.setMax_deposit(informations[11].contents[0].string.strip())
+
+                hyip.setSsl(informations[15].contents[0].string.strip())
+                hyip.setDdos_protect(informations[14].contents[0].string.strip())
+                for payi in informations[16].contents:
+                    scream.ssay(payi.attrs)
+                    if 'pm2' in payi['class']:
+                        hyip.addPayment_method('PerfectM')
+                    elif 'pm3' in payi['class']:
+                        hyip.addPayment_method('Bankwire')
+                    elif 'pm4' in payi['class']:
+                        hyip.addPayment_method('BitCoin')
+                    elif 'pm5' in payi['class']:
+                        hyip.addPayment_method('Ego')
+                    elif 'pm6' in payi['class']:
+                        hyip.addPayment_method('Stp')
+                    elif 'pm7' in payi['class']:
+                        hyip.addPayment_method('Payza')
+                scream.say(hyip.getPayment_methods())
+                hyip.setLife_time('N/A')
+                # get a "lifetime" from the "view full details"
+
+                hyip.setFunds_return('N/A')
+                hyip.setAdmin_rate('N/A')
+                output(hyip)
         elif method == 'native':
             scream.log('Not supported yet! Use static or dont define @method at all')
             exit(1)
