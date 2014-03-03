@@ -384,6 +384,16 @@ if __name__ == "__main__":
                 scream.ssay(final_redirect)
                 hyip.setUrl(final_redirect)
                 hyip.setStatus('NOT PAYING')
+
+                informations = local_soup.findAll("td")
+                for i in informations:
+                    scream.say(i.contents)
+                hyip.setUser_rate(informations[2].contents[0].string.strip())
+                hyip.setPayouts(informations[3].contents[0].contents[0].string.strip())
+                hyip.setPeriod(informations[4].contents[0].string.strip())
+                hyip.setPlan_details(informations[5].contents[0].string.strip())
+                hyip.setPrincipal_return(informations[6].contents[0].string.strip())
+                hyip.setWithdraw_type(informations[7].contents[0].string.strip())
             elements_status2 = doc.xpath('//tr[@class="status2" and (not(@id))]')
             scream.ssay(len(elements_status2))
             for element in elements_status2:
@@ -420,6 +430,16 @@ if __name__ == "__main__":
                 scream.ssay(final_redirect)
                 hyip.setUrl(final_redirect)
                 hyip.setStatus('PROBLEM')
+
+                informations = local_soup.findAll("td")
+                for i in informations:
+                    scream.say(i.contents)
+                hyip.setUser_rate(informations[2].contents[0].string.strip())
+                hyip.setPayouts(informations[3].contents[0].contents[0].string.strip())
+                hyip.setPeriod(informations[4].contents[0].string.strip())
+                hyip.setPlan_details(informations[5].contents[0].string.strip())
+                hyip.setPrincipal_return(informations[6].contents[0].string.strip())
+                hyip.setWithdraw_type(informations[7].contents[0].string.strip())
             elements_status3 = doc.xpath('//tr[@class="status3" and (not(@id))]')
             scream.ssay(len(elements_status3))
             for element in elements_status3:
@@ -456,6 +476,16 @@ if __name__ == "__main__":
                 scream.ssay(final_redirect)
                 hyip.setUrl(final_redirect)
                 hyip.setStatus('WAITING')
+
+                informations = local_soup.findAll("td")
+                for i in informations:
+                    scream.say(i.contents)
+                hyip.setUser_rate(informations[2].contents[0].string.strip())
+                hyip.setPayouts(informations[3].contents[0].contents[0].string.strip())
+                hyip.setPeriod(informations[4].contents[0].string.strip())
+                hyip.setPlan_details(informations[5].contents[0].string.strip())
+                hyip.setPrincipal_return(informations[6].contents[0].string.strip())
+                hyip.setWithdraw_type(informations[7].contents[0].string.strip())
             elements_status4 = doc.xpath('//tr[@class="status4" and (not(@id))]')
             scream.ssay(len(elements_status4))
             for element in elements_status4:
@@ -492,6 +522,16 @@ if __name__ == "__main__":
                 scream.ssay(final_redirect)
                 hyip.setUrl(final_redirect)
                 hyip.setStatus('PAYING')
+
+                informations = local_soup.findAll("td")
+                for i in informations:
+                    scream.say(i.contents)
+                hyip.setUser_rate(informations[2].contents[0].string.strip())
+                hyip.setPayouts(informations[3].contents[0].contents[0].string.strip())
+                hyip.setPeriod(informations[4].contents[0].string.strip())
+                hyip.setPlan_details(informations[5].contents[0].string.strip())
+                hyip.setPrincipal_return(informations[6].contents[0].string.strip())
+                hyip.setWithdraw_type(informations[7].contents[0].string.strip())
         elif method == 'native':
             scream.log('Not supported yet! Use static or dont define @method at all')
             exit(1)

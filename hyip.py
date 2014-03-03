@@ -25,14 +25,42 @@ class Hyip():
     funds_return = None
     referral_bonus = None
     plan = None
+    plan_details = None
+    period = None
     days_online = None
     payment_methods = None
+    principal_return = None
+    withdraw_type = None
 
     def getName(self):
         return self.repository_name
 
     def setName(self, name):
         self.repository_name = name
+
+    def getPeriod(self):
+        return self.period
+
+    def setPeriod(self, period):
+        self.period = period
+
+    def getPlan_details(self):
+        return self.plan_details
+
+    def setPlan_details(self, plan_details):
+        self.plan_details = plan_details
+
+    def getWithdraw_type(self):
+        return self.withdraw_type
+
+    def setWithdraw_type(self, withdraw_type):
+        self.withdraw_type = withdraw_type
+
+    def getPrincipal_return(self):
+        return self.principal_return
+
+    def setPrincipal_return(self, principal_return):
+        self.principal_return = principal_return
 
     def getLife_time(self):
         return self.life_time
