@@ -145,7 +145,8 @@ def output(hyip):
             result_writer.writerow([hyip.getName(), hyip.getStatus(), hyip.getUrl(),
                                    'http://' + urlparse.urlparse(hyip.getUrl()).netloc, hyip.getPayouts(), hyip.getLife_time(),
                                    hyip.getMonitoring(), hyip.getAdmin_rate(), hyip.getUser_rate(), hyip.getFunds_return(),
-                                   hyip.getMin_deposit(), hyip.getMax_deposit(), hyip.getReferral_bonus(), str(hyip.getPayment_methods())])
+                                   hyip.getMin_deposit(), hyip.getMax_deposit(), hyip.getReferral_bonus(),
+                                   str(hyip.getPayment_methods()), hyip.getPlan()])
             result_csvfile.close()
 
 
@@ -357,11 +358,13 @@ if __name__ == "__main__":
                 local_soup = BeautifulSoup(etree.tostring(element))
                 hyip_name_tag = local_soup.find("div", {"class": "ramka"})
                 hyip_name = hyip_name_tag.contents[0].string
+                hyip_plan = hyip_name_tag.contents[2].string
                 hyip_url_onclick = hyip_name_tag['onclick'].split('\'')
                 hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
                 scream.say('Name: ' + hyip_name.strip())
                 scream.say('URL: ' + hyip_url)
                 hyip.setName(hyip_name.strip())
+                hyip.setPlan(hyip_plan.strip())
 
                 session = requests.session()
                 a = requests.adapters.HTTPAdapter(max_retries=5)
@@ -380,6 +383,7 @@ if __name__ == "__main__":
                         final_redirect = location_found
                 scream.ssay(final_redirect)
                 hyip.setUrl(final_redirect)
+                hyip.setStatus('NOT PAYING')
             elements_status2 = doc.xpath('//tr[@class="status2" and (not(@id))]')
             scream.ssay(len(elements_status2))
             for element in elements_status2:
@@ -390,11 +394,13 @@ if __name__ == "__main__":
                 local_soup = BeautifulSoup(etree.tostring(element))
                 hyip_name_tag = local_soup.find("div", {"class": "ramka"})
                 hyip_name = hyip_name_tag.contents[0].string
+                hyip_plan = hyip_name_tag.contents[2].string
                 hyip_url_onclick = hyip_name_tag['onclick'].split('\'')
                 hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
                 scream.say('Name: ' + hyip_name.strip())
                 scream.say('URL: ' + hyip_url)
                 hyip.setName(hyip_name.strip())
+                hyip.setPlan(hyip_plan.strip())
 
                 session = requests.session()
                 a = requests.adapters.HTTPAdapter(max_retries=5)
@@ -413,6 +419,7 @@ if __name__ == "__main__":
                         final_redirect = location_found
                 scream.ssay(final_redirect)
                 hyip.setUrl(final_redirect)
+                hyip.setStatus('PROBLEM')
             elements_status3 = doc.xpath('//tr[@class="status3" and (not(@id))]')
             scream.ssay(len(elements_status3))
             for element in elements_status3:
@@ -423,11 +430,13 @@ if __name__ == "__main__":
                 local_soup = BeautifulSoup(etree.tostring(element))
                 hyip_name_tag = local_soup.find("div", {"class": "ramka"})
                 hyip_name = hyip_name_tag.contents[0].string
+                hyip_plan = hyip_name_tag.contents[2].string
                 hyip_url_onclick = hyip_name_tag['onclick'].split('\'')
                 hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
                 scream.say('Name: ' + hyip_name.strip())
                 scream.say('URL: ' + hyip_url)
                 hyip.setName(hyip_name.strip())
+                hyip.setPlan(hyip_plan.strip())
 
                 session = requests.session()
                 a = requests.adapters.HTTPAdapter(max_retries=5)
@@ -446,6 +455,7 @@ if __name__ == "__main__":
                         final_redirect = location_found
                 scream.ssay(final_redirect)
                 hyip.setUrl(final_redirect)
+                hyip.setStatus('WAITING')
             elements_status4 = doc.xpath('//tr[@class="status4" and (not(@id))]')
             scream.ssay(len(elements_status4))
             for element in elements_status4:
@@ -456,11 +466,13 @@ if __name__ == "__main__":
                 local_soup = BeautifulSoup(etree.tostring(element))
                 hyip_name_tag = local_soup.find("div", {"class": "ramka"})
                 hyip_name = hyip_name_tag.contents[0].string
+                hyip_plan = hyip_name_tag.contents[2].string
                 hyip_url_onclick = hyip_name_tag['onclick'].split('\'')
                 hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
                 scream.say('Name: ' + hyip_name.strip())
                 scream.say('URL: ' + hyip_url)
                 hyip.setName(hyip_name.strip())
+                hyip.setPlan(hyip_plan.strip())
 
                 session = requests.session()
                 a = requests.adapters.HTTPAdapter(max_retries=5)
@@ -479,6 +491,7 @@ if __name__ == "__main__":
                         final_redirect = location_found
                 scream.ssay(final_redirect)
                 hyip.setUrl(final_redirect)
+                hyip.setStatus('PAYING')
         elif method == 'native':
             scream.log('Not supported yet! Use static or dont define @method at all')
             exit(1)
