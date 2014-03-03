@@ -197,147 +197,172 @@ if __name__ == "__main__":
 
     makeHeaders()
 
-    if method == 'native':
-        doc = html.parse(goldpoll_url)
-        #print etree.tostring(doc)
-        elements_c10 = doc.xpath('//table[@class="cl0"]')
-        scream.ssay(len(elements_c10))
+    if 'goldpoll' in sites:
+        if method == 'static':
+            scream.log('Not supported yet! Use native or dont define @method at all')
+        elif method == 'native':
+            doc = html.parse(goldpoll_url)
+            #print etree.tostring(doc)
+            elements_c10 = doc.xpath('//table[@class="cl0"]')
+            scream.ssay(len(elements_c10))
 
-        for element in elements_c10:
-            scream.ssay('')
-            scream.ssay('Parsing HYIP..')
-            hyip = Hyip()
+            for element in elements_c10:
+                scream.ssay('')
+                scream.ssay('Parsing HYIP..')
+                hyip = Hyip()
 
-            local_soup = BeautifulSoup(etree.tostring(element))
-            hyip_name_tag = local_soup.find("a", {"class": "nhyip"})
-            hyip_name = hyip_name_tag.string
-            hyip_url = 'http://www.goldpoll.com' + hyip_name_tag['href']
-            scream.say('Name: ' + hyip_name.strip())
-            scream.say('URL: ' + hyip_url)
-            hyip.setName(hyip_name.strip())
+                local_soup = BeautifulSoup(etree.tostring(element))
+                hyip_name_tag = local_soup.find("a", {"class": "nhyip"})
+                hyip_name = hyip_name_tag.string
+                hyip_url = 'http://www.goldpoll.com' + hyip_name_tag['href']
+                scream.say('Name: ' + hyip_name.strip())
+                scream.say('URL: ' + hyip_url)
+                hyip.setName(hyip_name.strip())
 
-            session = requests.session()
-            a = requests.adapters.HTTPAdapter(max_retries=5)
-            session.mount('http://', a)
-            r = session.get(hyip_url, allow_redirects=False)
-            location_found = r.headers.get('location')
-            final_redirect = None
-            try:
-                for redirect in session.resolve_redirects(r, r.request):
-                    final_redirect = redirect.headers.get('location')
-            except:
-                #redirect broken, must quit
-                scream.ssay('redirects resolved')
-            finally:
-                if final_redirect is None:
-                    final_redirect = location_found
-            scream.ssay(final_redirect)
-            hyip.setUrl(final_redirect)
+                session = requests.session()
+                a = requests.adapters.HTTPAdapter(max_retries=5)
+                session.mount('http://', a)
+                r = session.get(hyip_url, allow_redirects=False)
+                location_found = r.headers.get('location')
+                final_redirect = None
+                try:
+                    for redirect in session.resolve_redirects(r, r.request):
+                        final_redirect = redirect.headers.get('location')
+                except:
+                    #redirect broken, must quit
+                    scream.ssay('redirects resolved')
+                finally:
+                    if final_redirect is None:
+                        final_redirect = location_found
+                scream.ssay(final_redirect)
+                hyip.setUrl(final_redirect)
 
-            small2 = local_soup.find("td", {"class": "small2"}).contents
-            for content in small2:
-                string_content = str(content.string)
-                scream.ssay('small2 found:' + string_content)
-                if (content.string is not None) and ('lifetime' in content.string):
-                    index = small2.index(content) + 1
-                    hyip.setLife_time(small2[index].strip())
-                if (content.string is not None) and ('monitoring' in content.string):
-                    index = small2.index(content) + 1
-                    hyip.setMonitoring(small2[index].strip())
-                if (content.string is not None) and ('admin rate' in content.string):
-                    index = small2.index(content) + 1
-                    hyip.setAdmin_rate(small2[index].strip())
-                if (content.string is not None) and ('user rate' in content.string):
-                    index = small2.index(content) + 1
-                    hyip.setUser_rate(small2[index].strip())
-                if (content.string is not None) and ('funds return' in content.string):
-                    index = small2.index(content) + 1
-                    hyip.setFunds_return(small2[index].strip())
-            tabl0 = local_soup.find("td", {"class": "tabl0"}).contents
-            for content in tabl0:
-                scream.ssay('tabl0 found:' + str(content.string))
-                if (content.string is not None) and ('payouts' in content.string):
-                    index = tabl0.index(content) + 1
-                    hyip.setPayouts(tabl0[index].strip())
-                if (content.string is not None) and ('min deposit' in content.string):
-                    index = tabl0.index(content) + 1
-                    hyip.setMin_deposit(tabl0[index].strip())
-                if (content.string is not None) and ('max deposit' in content.string):
-                    index = tabl0.index(content) + 1
-                    hyip.setMax_deposit(tabl0[index].strip())
-                if (content.string is not None) and ('referral bonus' in content.string):
-                    index = tabl0.index(content) + 1
-                    hyip.setReferral_bonus(tabl0[index].strip())
-            cl2 = local_soup.find("td", {"class": "cl2"}).contents
-            for content in cl2:
-                scream.ssay('cl2: ' + str(content.string))
-                if (content.string is not None) and ('not paid' in content.string):
-                    index = cl2.index(content) + 1
-                    hyip.setStatus('NOT PAYING')
-                if (content.string is not None) and ('problem' in content.string):
-                    index = cl2.index(content) + 1
-                    hyip.setStatus('PROBLEM')
-                if (content.string is not None) and ('waiting' in content.string):
-                    index = cl2.index(content) + 1
-                    hyip.setStatus('WAITING')
-                if (content.string is not None) and ('paying' in content.string):
-                    index = cl2.index(content) + 1
-                    hyip.setStatus('PAYING')
-            cl3_candidate = local_soup.find("td", {"class": "cl3"})
-            if cl3_candidate is None:
-                cl3 = local_soup.find("td", {"width": "43"}).contents
-            else:
-                cl3 = cl3_candidate.contents
-            #scream.ssay(cl3)
-            for content in cl3:
-                #scream.ssay('cl3: ' + str(content.string))
-                scream.ssay(content.attrs)
-                if 'src' in content.attrs:
-                    #scream.ssay('payment method found')
-                    if (content['src'] is not None) and ('ego' in content['src']):
-                        #index = cl2.index(content) + 1
-                        hyip.addPayment_method('Ego')
-                    elif (content['src'] is not None) and ('paypal' in content['src']):
-                        #index = cl2.index(content) + 1
-                        hyip.addPayment_method('Paypal')
-                    elif (content['src'] is not None) and ('payza' in content['src']):
-                        #index = cl2.index(content) + 1
-                        hyip.addPayment_method('Payza')
-                    elif (content['src'] is not None) and ('perfectm' in content['src']):
-                        #index = cl2.index(content) + 1
-                        hyip.addPayment_method('PerfectM')
-                    elif (content['src'] is not None) and ('stp' in content['src']):
-                        #index = cl2.index(content) + 1
-                        hyip.addPayment_method('Stp')
-                    elif (content['src'] is not None) and ('pecunix' in content['src']):
-                        #index = cl2.index(content) + 1
-                        hyip.addPayment_method('Pecunix')
-                    elif (content['src'] is not None) and ('/small.gif' in content['src']):
-                        #index = cl2.index(content) + 1
-                        hyip.addPayment_method('Bankwire')
+                small2 = local_soup.find("td", {"class": "small2"}).contents
+                for content in small2:
+                    string_content = str(content.string)
+                    scream.ssay('small2 found:' + string_content)
+                    if (content.string is not None) and ('lifetime' in content.string):
+                        index = small2.index(content) + 1
+                        hyip.setLife_time(small2[index].strip())
+                    if (content.string is not None) and ('monitoring' in content.string):
+                        index = small2.index(content) + 1
+                        hyip.setMonitoring(small2[index].strip())
+                    if (content.string is not None) and ('admin rate' in content.string):
+                        index = small2.index(content) + 1
+                        hyip.setAdmin_rate(small2[index].strip())
+                    if (content.string is not None) and ('user rate' in content.string):
+                        index = small2.index(content) + 1
+                        hyip.setUser_rate(small2[index].strip())
+                    if (content.string is not None) and ('funds return' in content.string):
+                        index = small2.index(content) + 1
+                        hyip.setFunds_return(small2[index].strip())
+                tabl0 = local_soup.find("td", {"class": "tabl0"}).contents
+                for content in tabl0:
+                    scream.ssay('tabl0 found:' + str(content.string))
+                    if (content.string is not None) and ('payouts' in content.string):
+                        index = tabl0.index(content) + 1
+                        hyip.setPayouts(tabl0[index].strip())
+                    if (content.string is not None) and ('min deposit' in content.string):
+                        index = tabl0.index(content) + 1
+                        hyip.setMin_deposit(tabl0[index].strip())
+                    if (content.string is not None) and ('max deposit' in content.string):
+                        index = tabl0.index(content) + 1
+                        hyip.setMax_deposit(tabl0[index].strip())
+                    if (content.string is not None) and ('referral bonus' in content.string):
+                        index = tabl0.index(content) + 1
+                        hyip.setReferral_bonus(tabl0[index].strip())
+                cl2 = local_soup.find("td", {"class": "cl2"}).contents
+                for content in cl2:
+                    scream.ssay('cl2: ' + str(content.string))
+                    if (content.string is not None) and ('not paid' in content.string):
+                        index = cl2.index(content) + 1
+                        hyip.setStatus('NOT PAYING')
+                    if (content.string is not None) and ('problem' in content.string):
+                        index = cl2.index(content) + 1
+                        hyip.setStatus('PROBLEM')
+                    if (content.string is not None) and ('waiting' in content.string):
+                        index = cl2.index(content) + 1
+                        hyip.setStatus('WAITING')
+                    if (content.string is not None) and ('paying' in content.string):
+                        index = cl2.index(content) + 1
+                        hyip.setStatus('PAYING')
+                cl3_candidate = local_soup.find("td", {"class": "cl3"})
+                if cl3_candidate is None:
+                    cl3 = local_soup.find("td", {"width": "43"}).contents
                 else:
-                    scream.ssay('payment methods parsed')
-            scream.ssay(small2)
-            scream.ssay(cl2)
-            scream.ssay(tabl0)
+                    cl3 = cl3_candidate.contents
+                #scream.ssay(cl3)
+                for content in cl3:
+                    #scream.ssay('cl3: ' + str(content.string))
+                    scream.ssay(content.attrs)
+                    if 'src' in content.attrs:
+                        #scream.ssay('payment method found')
+                        if (content['src'] is not None) and ('ego' in content['src']):
+                            #index = cl2.index(content) + 1
+                            hyip.addPayment_method('Ego')
+                        elif (content['src'] is not None) and ('paypal' in content['src']):
+                            #index = cl2.index(content) + 1
+                            hyip.addPayment_method('Paypal')
+                        elif (content['src'] is not None) and ('payza' in content['src']):
+                            #index = cl2.index(content) + 1
+                            hyip.addPayment_method('Payza')
+                        elif (content['src'] is not None) and ('perfectm' in content['src']):
+                            #index = cl2.index(content) + 1
+                            hyip.addPayment_method('PerfectM')
+                        elif (content['src'] is not None) and ('stp' in content['src']):
+                            #index = cl2.index(content) + 1
+                            hyip.addPayment_method('Stp')
+                        elif (content['src'] is not None) and ('pecunix' in content['src']):
+                            #index = cl2.index(content) + 1
+                            hyip.addPayment_method('Pecunix')
+                        elif (content['src'] is not None) and ('/small.gif' in content['src']):
+                            #index = cl2.index(content) + 1
+                            hyip.addPayment_method('Bankwire')
+                    else:
+                        scream.ssay('payment methods parsed')
+                scream.ssay(small2)
+                scream.ssay(cl2)
+                scream.ssay(tabl0)
 
-            output(hyip)
-    elif method == 'urllib2':
-        print 'Currently unsupported.. must exit, sorry'
-        exit(1)
-
-        req = urllib2.Request(goldpoll_url)
-        response = urllib2.urlopen(req)
-        the_page = response.read()
-        webpage = the_page.decode("ISO-8859-1")
-        parser = etree.HTMLParser()
-
-        #jar = cookielib.FileCookieJar("cookies")
-        #opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar))
-        #response = opener.open(hyip_url)
-        #print response
-        #exit(1)
-
-        tree = etree.fromstring(webpage, parser)
-        elements_c10 = tree.xpath('//table[@class="cl0"]')
-        scream.ssay(elements_c10)
+                output(hyip)
+        elif method == 'mechanize':
+            scream.log('Not supported yet! Use native or dont define @method at all')
+        elif method == 'urllib2':
+            scream.log('Not supported yet! Use native or dont define @method at all')
+            exit(1)
+            req = urllib2.Request(goldpoll_url)
+            response = urllib2.urlopen(req)
+            the_page = response.read()
+            webpage = the_page.decode("ISO-8859-1")
+            parser = etree.HTMLParser()
+            #jar = cookielib.FileCookieJar("cookies")
+            #opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar))
+            #response = opener.open(hyip_url)
+            #print response
+            #exit(1)
+            tree = etree.fromstring(webpage, parser)
+            elements_c10 = tree.xpath('//table[@class="cl0"]')
+            scream.ssay(elements_c10)
+    if 'popularhyip' in sites:
+        if method == 'static':
+            doc = html.parse('input\\PopularHYIP-gecko.htm')
+            #print etree.tostring(doc)
+            elements_status1 = doc.xpath('//tr[@class="status1"]')
+            scream.ssay(len(elements_status1))
+            elements_status2 = doc.xpath('//tr[@class="status2"]')
+            scream.ssay(len(elements_status2))
+            elements_status3 = doc.xpath('//tr[@class="status3"]')
+            scream.ssay(len(elements_status3))
+            elements_status4 = doc.xpath('//tr[@class="status4"]')
+            scream.ssay(len(elements_status4))
+        elif method == 'native':
+            scream.log('Not supported yet! Use static or dont define @method at all')
+            exit(1)
+            doc = html.parse(popularhyip_url)
+            #print etree.tostring(doc)
+            elements_status4 = doc.xpath('//tr[@class="status4"]')
+            scream.ssay(len(elements_status4))
+        elif method == 'mechanize':
+            scream.log('Not supported yet! Use static or dont define @method at all')
+        elif method == 'urllib2':
+            scream.log('Not supported yet! Use static or dont define @method at all')
