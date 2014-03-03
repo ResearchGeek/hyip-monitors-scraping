@@ -1,0 +1,561 @@
+html {
+	margin: 0px; padding: 0px; width: 100%; height: 100%;
+}
+body {
+	background: url("../img/bg.gif") repeat-x 0px 0px rgb(255, 255, 255); margin: 0px 10px; padding: 0px; width: 100%; height: 100%; color: rgb(45, 84, 171); font-family: Arial, Helvetica, sans-serif; font-size: 13px;
+}
+a {
+	color: rgb(45, 84, 171); text-decoration: underline;
+}
+a:hover {
+	text-decoration: none;
+}
+img {
+	border: 0px currentColor; border-image: none;
+}
+table.main {
+	margin: 0px auto; width: 1100px; height: 100%;
+}
+table {
+	margin: 0px; padding: 0px; border-collapse: collapse;
+}
+td {
+	margin: 0px; padding: 0px; vertical-align: top;
+}
+.clickhere {
+	background: url("../img/click.gif") 0px 0px; top: -25px; width: 31px; height: 26px; right: 50px; position: absolute;
+}
+div.clr {
+	clear: both;
+}
+div.toplinks {
+	width: 1100px; height: 55px; text-align: right; padding-top: 50px; font-size: 15px; float: left;
+}
+div.toplinks a {
+	margin: 0px 2px 0px 10px;
+}
+div.logotop {
+	width: 622px; height: 137px; color: rgb(40, 59, 155); margin-left: 3px; float: left;
+}
+h1 {
+	font-family: "Times New Roman"; font-size: 21pt; font-weight: normal; margin-top: 5px; margin-bottom: 3px;
+}
+h2 {
+	color: rgb(45, 84, 171); font-size: 21pt;
+}
+div.logotop img {
+	margin: 0px; border: 0px currentColor; border-image: none; width: 576px; height: 91px;
+}
+div.bannertop {
+	width: 476px; text-align: center; float: left;
+}
+.adtext {
+	width: 320px; height: 69px; color: rgb(128, 128, 144); letter-spacing: 0.5px; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 11px; margin-top: 1px;
+}
+.adstat {
+	width: 320px; height: 29px; color: rgb(60, 99, 177); letter-spacing: 0.5px; overflow: hidden; font-size: 11px; margin-top: 5px;
+}
+.adstat .green {
+	color: rgb(73, 172, 0);
+}
+#ban4 {
+	width: 728px; height: 90px;
+}
+#ban1 {
+	background: rgb(204, 204, 204); margin: 0px 0px 7px; width: 468px; height: 60px; float: right;
+}
+#ban2 {
+	background: rgb(204, 204, 204); margin: 0px 0px 7px; width: 468px; height: 60px; float: right;
+}
+#ban3 {
+	width: 120px; height: 120px;
+}
+.advertise {
+	color: rgb(168, 170, 179); letter-spacing: 0.05em; padding-top: 21px; font-size: 13px;
+}
+div.bannertop img {
+	border: 0px currentColor; border-image: none; width: 468px; height: 60px;
+}
+div.toptext {
+	background: url("../img/topline.gif") repeat-x 0px 0px; padding: 8px 0px 21px 2px; width: 1100px; text-align: justify; color: rgb(115, 115, 115); font-size: 14px;
+}
+div.custoutput {
+	background: url("../img/custoutputbot.png") no-repeat left bottom; width: 928px; height: 168px; margin-left: 0px; float: left;
+}
+div.custoutput2 {
+	background: url("../img/custoutputtop.png") no-repeat 0px 0px; padding: 39px 27px 18px; width: 874px;
+}
+div.custoutput2ru {
+	background: url("../img/custoutputtop-ru.png") no-repeat 0px 0px; padding: 39px 27px 18px; width: 874px;
+}
+div.custoutput2es {
+	background: url("../img/custoutputtop-es.png") no-repeat 0px 0px; padding: 39px 27px 18px; width: 874px;
+}
+div.alert {
+	background: url("../img/alertico.gif") no-repeat left top; margin: 5px 0px 30px; padding: 3px 0px 0px 31px; height: 25px; color: rgb(217, 64, 0);
+}
+div.alert a {
+	color: rgb(217, 64, 0);
+}
+.notice {
+	background: url("../img/alertico.gif") no-repeat left top; padding: 4px 0px 0px 31px; height: 25px; margin-left: 15px;
+}
+div.coadv {
+	background: url("../img/ads2bg.png") no-repeat 0px 0px; width: 139px; height: 136px; text-align: center; padding-top: 31px; padding-left: 15px; margin-top: 1px; margin-left: 16px; float: left;
+}
+div.coadv img {
+	margin: 0px; border: 0px currentColor; border-image: none; width: 120px; height: 120px;
+}
+div.checkbox0 {
+	margin: 1px; padding-bottom: 6px; padding-left: 20px; font-size: 13px; cursor: pointer;
+}
+div.checkbox1 {
+	margin: 1px; padding-bottom: 6px; padding-left: 20px; font-size: 13px; cursor: pointer;
+}
+div.checkbox0 span {
+	color: rgb(73, 172, 0); font-weight: bold;
+}
+div.checkbox1 span {
+	color: rgb(73, 172, 0); font-weight: bold;
+}
+div.checkbox1 {
+	background: url("../img/chbox1.png") no-repeat 0px 1px;
+}
+div.checkbox0 {
+	background: url("../img/chbox0.png") no-repeat 0px 1px;
+}
+div.custoutcol {
+	margin-right: 27px; margin-bottom: 2px; float: left;
+}
+div.custoutcol_last {
+	margin-right: 0px; float: left;
+}
+div.custoutitem {
+	margin-bottom: 7px;
+}
+div.custoutitem_green {
+	margin-bottom: 7px;
+}
+.razdel {
+	background: url("../img/punktir-top.gif") repeat-x 0px 0px; height: 2px; padding-top: 10px; clear: both; margin-top: 7px;
+}
+div.custoutbot {
+	background: url("../img/punktir-top.gif") repeat-x 0px 0px; color: rgb(60, 99, 177); padding-top: 10px; font-size: 13px; font-weight: bold; margin-top: 7px;
+}
+div.custoutbot img {
+	margin: 7px;
+}
+div.custoutbot div.div1 {
+	margin: 0px 35px 0px 0px; float: left;
+}
+div.custoutbot div.div4 {
+	float: right; white-space: nowrap;
+}
+input.txt {
+	background: rgb(255, 255, 255); border-width: 1px; border-style: solid; border-color: rgb(136, 168, 216) rgb(4, 101, 188) rgb(4, 101, 188) rgb(136, 168, 216); width: 36px; color: rgb(78, 174, 1); padding-left: 2px; font-size: 13px; font-weight: bold;
+}
+input.txtred {
+	background: rgb(92, 190, 41); border-width: 1px; border-style: solid; border-color: rgb(136, 168, 216) rgb(4, 101, 188) rgb(4, 101, 188) rgb(136, 168, 216); width: 36px; color: rgb(255, 255, 255); padding-left: 2px; font-size: 13px; font-weight: bold;
+}
+.txt1 {
+	background: rgb(255, 255, 255); border-width: 1px; border-style: solid; border-color: rgb(136, 168, 216) rgb(4, 101, 188) rgb(4, 101, 188) rgb(136, 168, 216); margin: 0px 7px 0px 0px; color: rgb(78, 174, 1); padding-left: 2px; font-size: 13px;
+}
+div.showextra {
+	margin: 8px 0px 0px; font-size: 12px;
+}
+.showfav {
+	background: url("../img/favico.png") no-repeat 0px 0px; padding: 1px 0px 5px 25px; font-size: 13px; text-decoration: underline; float: left; cursor: pointer;
+}
+.showfav:hover {
+	text-decoration: none;
+}
+.search {
+	padding: 1px 0px 5px 1px; font-size: 13px; float: right;
+}
+.close-sm {
+	background: url("../img/close.png") no-repeat bottom; width: 16px; height: 18px; margin-right: 3px; float: right; display: block; cursor: pointer;
+}
+div.bannerbot {
+	margin: 50px auto; width: 100%; text-align: center;
+}
+div.bannerbot img {
+	margin: auto; border: 0px currentColor; border-image: none; text-align: center;
+}
+.ramka {
+	background: url("../img/ramka.png") no-repeat left top; height: 67px; text-align: left; padding-left: 87px; font-size: 14px; font-weight: normal; vertical-align: middle; display: table-cell; cursor: pointer;
+}
+.ramkatit {
+	background: url("../img/ramka.png") no-repeat left top; height: 67px; text-align: left; padding-left: 87px; font-size: 24px; vertical-align: middle; display: table-cell; cursor: pointer;
+}
+.stk {
+	background: url("../img/ramka-s.png") no-repeat left top;
+}
+.ramkatit span {
+	color: rgb(73, 172, 0); font-size: 14px; vertical-align: middle;
+}
+.ramka:hover {
+	text-decoration: underline;
+}
+.ramka .plan {
+	color: rgb(0, 153, 0); padding-top: 5px; font-size: 12px;
+}
+.mytable .errp {
+	color: rgb(204, 51, 0); font-size: 10px;
+}
+.mytable {
+	margin-top: 12px;
+}
+.mytable .incell {
+	padding-right: 31px; position: relative;
+}
+.mytable .favico {
+	background: url("../img/favico.png"); top: 2px; width: 18px; height: 17px; right: 0px; display: none; position: absolute;
+}
+.mytable .plus {
+	background: url("../img/plus.png") no-repeat right 0px; width: 47px; height: 14px; right: 1px; bottom: 1px; position: absolute; cursor: pointer;
+}
+.mytable .minus {
+	background: url("../img/minus.png") no-repeat right 0px; width: 47px; height: 14px; right: 1px; bottom: 1px; position: absolute; cursor: pointer;
+}
+.mytable .prem {
+	background: url("../img/prem.gif"); width: 50px; height: 36px;
+}
+.mytable td {
+	background-position: left; padding: 7px; text-align: center; color: rgb(60, 99, 177); font-family: Arial, Helvetica, sans-serif; font-size: 12px; vertical-align: middle; border-bottom-color: rgb(198, 198, 198); border-bottom-width: 1px; border-bottom-style: solid; background-image: url("../img/razd.gif"); background-repeat: no-repeat;
+}
+.mytable td.first {
+	background-position: -10px 0px; padding-left: 2px;
+}
+.mytable th {
+	padding: 0px; text-align: center; font-weight: normal; vertical-align: middle; min-width: 55px;
+}
+.mytable th {
+	background-position: right; background-image: url("../img/th-punktir.gif"); background-repeat: no-repeat;
+}
+.subth {
+	margin: 0px; width: 100%; display: inline;
+}
+.nosort {
+	padding: 0px 3px; width: 100%; height: 55px; text-align: center; color: rgb(255, 255, 255); font-size: 12px; vertical-align: middle; display: table-cell; cursor: pointer; min-width: 45px;
+}
+.s {
+	background: url("../img/notsorted.gif") no-repeat center;
+}
+.nosort:hover {
+	background: url("../img/notsorted.gif") no-repeat center;
+}
+.bandera-ru {
+	background: url("../img/ru.png") no-repeat 0px 0px; margin: -2px 0px 0px 15px; width: 24px; height: 24px; float: right; cursor: pointer;
+}
+.bandera-es {
+	background: url("../img/es.png") no-repeat 0px 0px; margin: -2px 0px 0px 15px; width: 24px; height: 24px; float: right; cursor: pointer;
+}
+.bandera-en {
+	background: url("../img/en.png") no-repeat 0px 0px; margin: -2px 0px 0px 15px; width: 24px; height: 24px; float: right; cursor: pointer;
+}
+.sort {
+	background: url("../img/msorted.gif") no-repeat 0px 0px; width: 47px; height: 35px; display: table-cell;
+}
+.sort-desc {
+	background: url("../img/msorted-desc.gif") no-repeat 0px 0px; width: 47px; height: 35px; display: table-cell;
+}
+.ru-sort {
+	background: url("../img/ru-msorted.gif") no-repeat 0px 0px; width: 47px; height: 35px; display: table-cell;
+}
+.ru-sort-desc {
+	background: url("../img/ru-msorted-desc.gif") no-repeat 0px 0px; width: 47px; height: 35px; display: table-cell;
+}
+.es-sort {
+	background: url("../img/es-msorted.gif") no-repeat 0px 0px; width: 47px; height: 35px; display: table-cell;
+}
+.es-sort-desc {
+	background: url("../img/es-msorted-desc.gif") no-repeat 0px 0px; width: 47px; height: 35px; display: table-cell;
+}
+.tl {
+	background-position: center; border: currentColor; border-image: none; left: 0px; top: 0px; width: 9px; height: 9px; vertical-align: top; float: left; position: relative; background-image: url("../img/tl.gif"); background-repeat: no-repeat;
+}
+.mytable th.last {
+	background-position: right top; background-image: url("../img/tr.gif"); background-repeat: no-repeat;
+}
+.mytable .tnone {
+	background: none; margin: 0px; padding: 0px; border: currentColor; border-image: none; text-align: center;
+}
+.mytable tr {
+	border-bottom-color: rgb(198, 198, 198); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.mytable tr.myth {
+	background: url("../img/th.gif") repeat-x left top rgb(42, 61, 156) !important; border: currentColor; border-image: none;
+}
+.mytable tr.sticky {
+	background-color: rgb(229, 255, 228) !important;
+}
+.mytable tr.status0 {
+	background-color: rgb(243, 243, 243) !important;
+}
+.mytable tr.status1 {
+	background-color: rgb(255, 218, 235) !important;
+}
+.mytable tr.status2 {
+	background-color: rgb(255, 218, 235) !important;
+}
+.mytable tr.status3 {
+	background-color: rgb(253, 253, 208) !important;
+}
+.mytable tr.status4 {
+	background: rgb(255, 255, 255) !important;
+}
+.mytable .istatus0 {
+	background: url("../img/status0.gif") no-repeat; width: 47px; height: 48px;
+}
+.mytable .istatus1 {
+	background: url("../img/status1.gif") no-repeat; width: 47px; height: 52px;
+}
+.mytable .istatus2 {
+	background: url("../img/status2.gif") no-repeat; width: 47px; height: 42px;
+}
+.mytable .istatus3 {
+	background: url("../img/status3.gif") no-repeat; width: 47px; height: 39px;
+}
+.mytable .istatus4 {
+	background: url("../img/status4.gif") no-repeat; width: 45px; height: 36px;
+}
+.click {
+	cursor: pointer;
+}
+.mytable .pm1 {
+	background: url("../img/pm1.png"); width: 42px; height: 18px; float: left;
+}
+.mytable .pm2 {
+	background: url("../img/pm2.png"); width: 42px; height: 18px; float: left;
+}
+.mytable .pm3 {
+	background: url("../img/pm3.png"); width: 42px; height: 18px; float: left;
+}
+.mytable .pm4 {
+	background: url("../img/pm4.png"); width: 42px; height: 18px; float: left;
+}
+.mytable .pm5 {
+	background: url("../img/pm5.png"); width: 42px; height: 18px; float: left;
+}
+.mytable .pm6 {
+	background: url("../img/pm6.png"); width: 42px; height: 18px; float: left;
+}
+.mytable .pm7 {
+	background: url("../img/pm7.png"); width: 42px; height: 18px; float: left;
+}
+.mytable .ok1 {
+	background: url("../img/ok1.png") no-repeat center; width: 100%; height: 28px; cursor: pointer;
+}
+.mytable .ok0 {
+	background: url("../img/ok0.png") no-repeat center; width: 100%; height: 28px; cursor: pointer;
+}
+.oth {
+	background: url("../img/othmoicos.png") no-repeat 0px 0px; width: 12px; height: 12px; float: left;
+}
+.st2 {
+	background-position: 0px 0px;
+}
+.st4 {
+	background-position: 0px -12px;
+}
+.st2 {
+	background-position: 0px -24px;
+}
+.st1 {
+	background-position: 0px -36px;
+}
+.st0 {
+	background-position: 0px -48px;
+}
+.di_first {
+	margin: 3px 0px 0px; width: 520px; height: 88px; text-align: left; padding-left: 15px; font-size: 11px; float: left;
+}
+.dinfo {
+	color: rgb(132, 138, 132); margin-top: 12px;
+}
+.dinfo a {
+	color: rgb(132, 138, 132);
+}
+.di_links a {
+	background: no-repeat 0px 0px; margin: 5px 11px 15px 0px; padding: 2px 0px 2px 22px; height: 30px; font-size: 11px;
+}
+.di_links a.fav {
+	background-image: url("../img/favico.png");
+}
+.di_links a.vote {
+	background-image: url("../img/di-vote.png");
+}
+.di_links a.scam {
+	background-image: url("../img/di-scam.png");
+}
+.di_links a.error {
+	background-image: url("../img/di-error.png");
+}
+.di_links a.other {
+	background-image: url("../img/di-other.png");
+}
+.di_links a.full {
+	background-image: url("../img/di-full.png");
+}
+.di_links a.normal {
+	padding-left: 0px;
+}
+.di_razd {
+	background: url("../img/razd-di.gif") no-repeat 0px 0px; margin: 3px 5px 0px 10px; width: 1px; height: 84px; float: left;
+}
+.di_second {
+	margin: 3px 0px 0px 10px; height: 88px; text-align: left; font-size: 11px; float: left;
+}
+.othstat1 {
+	width: 60px; color: rgb(132, 138, 132); font-size: 11px; margin-top: 12px; float: left;
+}
+.moname {
+	background: url("../img/othmoicos.png") no-repeat right 0px; margin: 0px 10px 3px 0px; height: 12px; padding-right: 24px;
+}
+.st2.moname {
+	background-position: right 0px;
+}
+.st4.moname {
+	background-position: right -12px;
+}
+.st2.moname {
+	background-position: right -24px;
+}
+.st1.moname {
+	background-position: right -36px;
+}
+.st0.moname {
+	background-position: right -48px;
+}
+table.tmon {
+	background: none; padding: 0px; border: currentColor; border-image: none; text-align: left; color: rgb(132, 138, 132); font-size: 11px; margin-top: 12px;
+}
+table.tmon td {
+	background: none; padding: 0px; border: currentColor; border-image: none; text-align: left; color: rgb(132, 138, 132); font-size: 11px; margin-top: 12px;
+}
+table.tmon tr {
+	background: none; padding: 0px; border: currentColor; border-image: none; text-align: left; color: rgb(132, 138, 132); font-size: 11px; margin-top: 12px;
+}
+.brd {
+	background: white; padding: 3px; border: 1px solid rgb(67, 100, 188); border-image: none;
+}
+.pagenav {
+	width: 1100px; line-height: 25px; font-size: 11px; margin-top: 15px; float: left;
+}
+.pagenav span {
+	font-size: 13px; margin-right: 3px;
+}
+.pagenav strong {
+	padding: 0px 3px; border: 1px solid rgb(67, 100, 188); border-image: none; text-decoration: none; margin-right: 3px;
+}
+.pagenav a {
+	padding: 0px 3px; border: 1px solid rgb(67, 100, 188); border-image: none; text-decoration: none; margin-right: 3px;
+}
+.pagenav strong {
+	background: url("../img/th.gif") repeat-x center; color: rgb(255, 255, 255);
+}
+.pagenav a:hover {
+	background: url("../img/th.gif") repeat-x center; color: rgb(255, 255, 255);
+}
+.close {
+	background: url("../img/close1.gif") no-repeat center; width: 28px; height: 26px; margin-right: 12px; float: right; cursor: pointer;
+}
+.close:hover {
+	background-image: url("../img/close2.gif");
+}
+.rt {
+	background: url("../img/rt.gif") no-repeat right top; height: 13px; margin-left: 12px;
+}
+.lt {
+	background: url("../img/lt.gif") no-repeat left top; height: 13px; margin-left: -12px;
+}
+.rb {
+	background: url("../img/rb.gif") no-repeat right bottom; height: 13px; margin-left: 12px;
+}
+.lb {
+	background: url("../img/lb.gif") no-repeat left bottom; height: 13px; margin-left: -12px;
+}
+.cnt {
+	background: rgb(255, 255, 255); height: 100%; border-right-color: rgb(67, 100, 188); border-left-color: rgb(67, 100, 188); border-right-width: 1px; border-left-width: 1px; border-right-style: solid; border-left-style: solid;
+}
+.cntm {
+	background: url("../img/green-fon.gif") repeat-x bottom rgb(255, 255, 255); margin: 0px 12px; padding: 5px; height: 100%;
+}
+.cntmc {
+	background: rgb(255, 255, 255); margin: 0px 12px; padding: 5px; height: 100%;
+}
+.blackback {
+	left: 0px; top: 0px; width: 100%; height: 100%; position: fixed; z-index: 100; opacity: 0.25; background-color: rgb(0, 0, 34); -moz-opacity: 0.25; -khtml-opacity: 0.25;
+}
+.popup {
+	position: absolute; z-index: 110;
+}
+.half {
+	background: url("../img/half.gif") no-repeat left top; padding: 1px 17px 17px;
+}
+.tit2 {
+	background: url("../img/blue_r.gif") no-repeat left; margin: 30px 0px 0px; padding: 1px 0px 0px 28px; font-size: 22px;
+}
+.tit {
+	margin: 20px 0px 15px; font-size: 22px;
+}
+.text {
+	color: rgb(102, 102, 102); line-height: 19px; text-indent: 15px; font-size: 14px; margin-bottom: 35px;
+}
+.text span {
+	color: rgb(73, 172, 0); line-height: normal; text-indent: 0px;
+}
+.text strong {
+	color: rgb(45, 84, 171); font-weight: normal;
+}
+.text p {
+	margin: 0px 0px 5px;
+}
+.btm {
+	margin: 45px 0px 0px; padding: 5px 0px 25px; width: 1100px; color: rgb(136, 136, 136); font-size: 11px; border-top-color: rgb(67, 100, 188); border-top-width: 1px; border-top-style: solid; float: left;
+}
+.btm-fon {
+	background: url("../img/bgb.gif") repeat-x top; padding: 50px 0px; width: 100%; margin-top: -90px;
+}
+.vote {
+	margin: 20px 10px 10px;
+}
+.lastvotes {
+	margin: 34px 10px 25px;
+}
+.votebut {
+	background: url("../img/vote.png") no-repeat 0px 0px; margin: 10px 0px 15px; width: 54px; height: 25px; cursor: pointer;
+}
+.scambut {
+	background: url("../img/scam.png") no-repeat 0px 0px; margin: 10px 0px 15px; width: 104px; height: 25px; cursor: pointer;
+}
+.errbut {
+	background: url("../img/berror.png") no-repeat 0px 0px; margin: 10px 0px 15px; width: 104px; height: 25px; cursor: pointer;
+}
+.sendbut {
+	background: url("../img/send.png") no-repeat 0px 0px; margin: 10px 0px 15px; width: 109px; height: 25px; cursor: pointer;
+}
+.votestatus {
+	background: url("../img/statuses.png") no-repeat left top; margin: 10px 0px 0px; padding: 0px 0px 8px 33px;
+}
+.vst0 {
+	color: rgb(136, 136, 136);
+}
+.vst1 {
+	background-position: left -28px; color: rgb(0, 0, 0);
+}
+.vst2 {
+	background-position: left -56px; color: rgb(207, 50, 0);
+}
+.vst3 {
+	background-position: left -84px; color: rgb(248, 131, 8);
+}
+.vst4 {
+	background-position: left -112px; color: rgb(65, 158, 0);
+}
+.votecomment {
+	background: url("../img/punktir-top.gif") repeat-x bottom; margin: -3px 0px 0px; padding: 0px 0px 5px 33px; color: rgb(102, 102, 102); font-size: 9px;
+}
+.txtarea {
+	background: rgb(255, 255, 255); border-width: 1px; border-style: solid; border-color: rgb(136, 168, 216) rgb(4, 101, 188) rgb(4, 101, 188) rgb(136, 168, 216); margin: 0px 7px 0px 0px; width: 100%; color: rgb(78, 174, 1); padding-left: 2px; font-size: 13px;
+}
