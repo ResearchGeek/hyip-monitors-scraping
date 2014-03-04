@@ -149,7 +149,7 @@ def makeHeaders():
                 result_writer.writerow(['sep=' + MyDialect.delimiter])
             result_writer.writerow(['Name', 'Status', 'URL', 'Clean URL', 'Payouts', 'Life time',
                                    'Monitoring', 'Admin rate', 'User rate', 'Funds return',
-                                   'Min deposit', 'Max deposit', 'Referral bonus', 'Payment methods'])
+                                   'Min deposit', 'Max deposit', 'Referral bonus', 'Payment methods', 'Plan'])
             result_csvfile.close()
 
 
@@ -386,9 +386,9 @@ if __name__ == "__main__":
                 hyip.setPlan(hyip_plan)
 
                 session = requests.session()
-                a = requests.adapters.HTTPAdapter(max_retries=5)
+                a = requests.adapters.HTTPAdapter(pool_connections=256, pool_maxsize=256, max_retries=10)
                 session.mount('http://', a)
-                r = session.get(hyip_url, allow_redirects=False)
+                r = session.get(hyip_url, allow_redirects=False, timeout=6)
                 location_found = r.headers.get('location')
                 final_redirect = None
                 try:
