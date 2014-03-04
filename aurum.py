@@ -452,14 +452,15 @@ if __name__ == "__main__":
 
                 local_soup = BeautifulSoup(etree.tostring(element))
                 hyip_name_tag = local_soup.find("div", {"class": "ramka"})
-                hyip_name = hyip_name_tag.contents[0].string
-                hyip_plan = hyip_name_tag.contents[2].string
+                hyip_name = unicode(hyip_name_tag.contents[0].string).strip()
+                hyip_plan = unicode(hyip_name_tag.contents[2].string).strip()
                 hyip_url_onclick = hyip_name_tag['onclick'].split('\'')
                 hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
-                scream.say('Name: ' + hyip_name.strip())
+                scream.say('Name: ' + hyip_name)
                 scream.say('URL: ' + hyip_url)
-                hyip.setName(hyip_name.strip())
-                hyip.setPlan(hyip_plan.strip())
+                hyip.setName(hyip_name)
+                scream.say(hyip_plan)
+                hyip.setPlan(hyip_plan)
 
                 session = requests.session()
                 a = requests.adapters.HTTPAdapter(max_retries=5)
@@ -493,6 +494,7 @@ if __name__ == "__main__":
                 hyip.setDays_online(informations[8].contents[0].string.strip())
                 hyip.setMin_deposit(informations[10].contents[0].string.strip())
                 hyip.setMax_deposit(informations[11].contents[0].string.strip())
+                hyip.setReferral_bonus(informations[12].contents[0].string.strip())
 
                 hyip.setSsl(informations[15].contents[0].string.strip())
                 hyip.setDdos_protect(informations[14].contents[0].string.strip())
@@ -526,14 +528,15 @@ if __name__ == "__main__":
 
                 local_soup = BeautifulSoup(etree.tostring(element))
                 hyip_name_tag = local_soup.find("div", {"class": "ramka"})
-                hyip_name = hyip_name_tag.contents[0].string
-                hyip_plan = hyip_name_tag.contents[2].string
+                hyip_name = unicode(hyip_name_tag.contents[0].string).strip()
+                hyip_plan = unicode(hyip_name_tag.contents[2].string).strip()
                 hyip_url_onclick = hyip_name_tag['onclick'].split('\'')
                 hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
-                scream.say('Name: ' + hyip_name.strip())
+                scream.say('Name: ' + hyip_name)
                 scream.say('URL: ' + hyip_url)
-                hyip.setName(hyip_name.strip())
-                hyip.setPlan(hyip_plan.strip())
+                hyip.setName(hyip_name)
+                scream.say(hyip_plan)
+                hyip.setPlan(hyip_plan)
 
                 session = requests.session()
                 a = requests.adapters.HTTPAdapter(max_retries=5)
@@ -567,6 +570,7 @@ if __name__ == "__main__":
                 hyip.setDays_online(informations[8].contents[0].string.strip())
                 hyip.setMin_deposit(informations[10].contents[0].string.strip())
                 hyip.setMax_deposit(informations[11].contents[0].string.strip())
+                hyip.setReferral_bonus(informations[12].contents[0].string.strip())
 
                 hyip.setSsl(informations[15].contents[0].string.strip())
                 hyip.setDdos_protect(informations[14].contents[0].string.strip())
@@ -600,14 +604,15 @@ if __name__ == "__main__":
 
                 local_soup = BeautifulSoup(etree.tostring(element))
                 hyip_name_tag = local_soup.find("div", {"class": "ramka"})
-                hyip_name = hyip_name_tag.contents[0].string
-                hyip_plan = hyip_name_tag.contents[2].string
+                hyip_name = unicode(hyip_name_tag.contents[0].string).strip()
+                hyip_plan = unicode(hyip_name_tag.contents[2].string).strip()
                 hyip_url_onclick = hyip_name_tag['onclick'].split('\'')
                 hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
-                scream.say('Name: ' + hyip_name.strip())
+                scream.say('Name: ' + hyip_name)
                 scream.say('URL: ' + hyip_url)
-                hyip.setName(hyip_name.strip())
-                hyip.setPlan(hyip_plan.strip())
+                hyip.setName(hyip_name)
+                scream.say(hyip_plan)
+                hyip.setPlan(hyip_plan)
 
                 session = requests.session()
                 a = requests.adapters.HTTPAdapter(max_retries=5)
@@ -641,6 +646,7 @@ if __name__ == "__main__":
                 hyip.setDays_online(informations[8].contents[0].string.strip())
                 hyip.setMin_deposit(informations[10].contents[0].string.strip())
                 hyip.setMax_deposit(informations[11].contents[0].string.strip())
+                hyip.setReferral_bonus(informations[12].contents[0].string.strip())
 
                 hyip.setSsl(informations[15].contents[0].string.strip())
                 hyip.setDdos_protect(informations[14].contents[0].string.strip())
