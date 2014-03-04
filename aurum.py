@@ -153,8 +153,8 @@ def makeHeaders():
             result_csvfile.close()
 
 
-def output(hyip):
-    with open(result_filename, 'ab') as result_csvfile:
+def output(hyip, portalname):
+    with open(portalname + '-' + result_filename, 'ab') as result_csvfile:
             result_writer = UnicodeWriter(result_csvfile)
             result_writer.writerow([hyip.getName(), hyip.getStatus(), hyip.getUrl(),
                                    'http://' + urlparse.urlparse(hyip.getUrl()).netloc, hyip.getPayouts(), hyip.getLife_time(),
@@ -186,9 +186,10 @@ if __name__ == "__main__":
     method = 'native'
     sites = None
     add_delimiter_info = False
+    geckoname = 'PopularHYIP-gecko.htm'
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hm:s:vd", ["help", "method=", "sites=", "verbose", "delimiter"])
+        opts, args = getopt.getopt(sys.argv[1:], "hm:s:i:vd", ["help", "method=", "sites=", "input=", "verbose", "delimiter"])
     except getopt.GetoptError as err:
         # print help information and exit:
         print str(err)  # will print something like "option -a not recognized"
@@ -209,6 +210,8 @@ if __name__ == "__main__":
             method = a
         elif o in ("-s", "--sites"):
             sites = a
+        elif o in ("-i", "--input"):
+            geckoname = a
 
     makeHeaders()
 
@@ -361,7 +364,7 @@ if __name__ == "__main__":
     if 'popularhyip' in sites:
         if method == 'static':
             dir_separator = ('\\' if isWindows() else '/')
-            doc = html.parse('input' + dir_separator + 'PopularHYIP-gecko.htm')
+            doc = html.parse('input' + dir_separator + geckoname)
             #print etree.tostring(doc)
             elements_status1 = doc.xpath('//tr[@class="status1" and (not(@id))]')
             scream.ssay(len(elements_status1))
@@ -372,15 +375,15 @@ if __name__ == "__main__":
 
                 local_soup = BeautifulSoup(etree.tostring(element))
                 hyip_name_tag = local_soup.find("div", {"class": "ramka"})
-                hyip_name = hyip_name_tag.contents[0].string
-                hyip_plan = hyip_name_tag.contents[2].string
+                hyip_name = unicode(hyip_name_tag.contents[0].string).strip()
+                hyip_plan = unicode(hyip_name_tag.contents[2].string).strip()
                 hyip_url_onclick = hyip_name_tag['onclick'].split('\'')
                 hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
-                scream.say('Name: ' + hyip_name.strip())
+                scream.say('Name: ' + hyip_name)
                 scream.say('URL: ' + hyip_url)
-                hyip.setName(hyip_name.strip())
-                scream.say(hyip_plan.strip())
-                hyip.setPlan(hyip_plan.strip())
+                hyip.setName(hyip_name)
+                scream.say(hyip_plan)
+                hyip.setPlan(hyip_plan)
 
                 session = requests.session()
                 a = requests.adapters.HTTPAdapter(max_retries=5)
@@ -439,7 +442,7 @@ if __name__ == "__main__":
 
                 hyip.setFunds_return('N/A')
                 hyip.setAdmin_rate('N/A')
-                output(hyip)
+                output(hyip, 'popularhyip')
             elements_status2 = doc.xpath('//tr[@class="status2" and (not(@id))]')
             scream.ssay(len(elements_status2))
             for element in elements_status2:
@@ -513,7 +516,7 @@ if __name__ == "__main__":
 
                 hyip.setFunds_return('N/A')
                 hyip.setAdmin_rate('N/A')
-                output(hyip)
+                output(hyip, 'popularhyip')
             elements_status3 = doc.xpath('//tr[@class="status3" and (not(@id))]')
             scream.ssay(len(elements_status3))
             for element in elements_status3:
@@ -587,7 +590,7 @@ if __name__ == "__main__":
 
                 hyip.setFunds_return('N/A')
                 hyip.setAdmin_rate('N/A')
-                output(hyip)
+                output(hyip, 'popularhyip')
             elements_status4 = doc.xpath('//tr[@class="status4" and (not(@id))]')
             scream.ssay(len(elements_status4))
             for element in elements_status4:
@@ -661,7 +664,7 @@ if __name__ == "__main__":
 
                 hyip.setFunds_return('N/A')
                 hyip.setAdmin_rate('N/A')
-                output(hyip)
+                output(hyip, 'popularhyip')
         elif method == 'native':
             scream.log('Not supported yet! Use static or dont define @method at all')
             exit(1)
