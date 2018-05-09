@@ -1,6 +1,9 @@
 hyip-monitors-scraping
 ======================
 
+[![Pending Pull-Requests](http://githubbadges.herokuapp.com/ResearchGeek/hyip-monitors-scraping/pulls.svg?style=flat)](https://github.com/ResearchGeek/hyip-monitors-scraping/pulls)
+[![Github Issues](http://githubbadges.herokuapp.com/ResearchGeek/hyip-monitors-scraping/issues.svg)](https://github.com/ResearchGeek/hyip-monitors-scraping/issues)
+
 Downloads data about running HYIP programs from webmonitors like GoldPoll or PopularHYIP.com
 
 GoldPoll is a popular website which aggregates everyday working HYIP online establishment and verifies their status (paying / not paying) basing on the user experience. This monitor gives also clear information about time of existence of a particular HYIP in days (although the credibility of this may be bias) and range of percentage payed per day/week/month.
