@@ -11,8 +11,8 @@ for a in zip(*symbols):
         possible_translation.update({ord(a[0]): ord(b[1])})
 
 
-def cyrillic2latin(input):
-    return input.translate(possible_translation)
+def cyrillic2latin(input_string):
+    return input_string.translate(possible_translation)
 
 
 def is_latin(uchr):

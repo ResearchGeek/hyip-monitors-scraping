@@ -6,12 +6,12 @@ Represents a single HYIP entity
 '''
 
 
-class Hyip():
+class Hyip:
 
     def __init__(self):
         self.payment_methods = []
 
-    name = None
+    repository_name = None
     url = None
     status = None
     status_date = None
@@ -37,128 +37,128 @@ class Hyip():
     def get_name(self):
         return self.repository_name
 
-    def setName(self, name):
+    def set_name(self, name):
         self.repository_name = name
 
-    def getPeriod(self):
+    def get_period(self):
         return self.period
 
-    def setPeriod(self, period):
+    def set_period(self, period):
         self.period = period
 
-    def getPlan_details(self):
+    def get_plan_details(self):
         return self.plan_details
 
-    def setPlan_details(self, plan_details):
+    def set_plan_details(self, plan_details):
         self.plan_details = plan_details
 
-    def getWithdraw_type(self):
+    def get_withdraw_type(self):
         return self.withdraw_type
 
-    def setWithdraw_type(self, withdraw_type):
+    def set_withdraw_type(self, withdraw_type):
         self.withdraw_type = withdraw_type
 
-    def getPrincipal_return(self):
+    def get_principal_return(self):
         return self.principal_return
 
-    def setPrincipal_return(self, principal_return):
+    def set_principal_return(self, principal_return):
         self.principal_return = principal_return
 
-    def getLife_time(self):
+    def get_life_time(self):
         return self.life_time
 
-    def setLife_time(self, life_time):
+    def set_life_time(self, life_time):
         self.life_time = life_time
 
-    def getMonitoring(self):
+    def get_monitoring(self):
         return self.monitoring
 
-    def setMonitoring(self, monitoring):
+    def set_monitoring(self, monitoring):
         self.monitoring = monitoring
 
-    def getPayouts(self):
+    def get_payouts(self):
         return self.payouts
 
-    def setPayouts(self, payouts):
+    def set_payouts(self, payouts):
         self.payouts = payouts
 
-    def getAdmin_rate(self):
+    def get_admin_rate(self):
         return self.admin_rate
 
-    def setAdmin_rate(self, admin_rate):
+    def set_admin_rate(self, admin_rate):
         self.admin_rate = admin_rate
 
-    def getUser_rate(self):
+    def get_user_rate(self):
         return self.user_rate
 
-    def setUser_rate(self, user_rate):
+    def set_user_rate(self, user_rate):
         self.user_rate = user_rate
 
-    def getFunds_return(self):
+    def get_funds_return(self):
         return self.funds_return
 
-    def setFunds_return(self, funds_return):
+    def set_funds_return(self, funds_return):
         self.funds_return = funds_return
 
-    def setUrl(self, url):
+    def set_url(self, url):
         self.url = url
 
-    def getUrl(self):
+    def get_url(self):
         return self.url
 
-    def getStatus(self):
+    def get_status(self):
         return self.status
 
-    def setStatus(self, status):
+    def set_status(self, status):
         self.status = status
 
-    def getMin_deposit(self):
+    def get_min_deposit(self):
         return self.min_deposit
 
-    def setMin_deposit(self, min_deposit):
+    def set_min_deposit(self, min_deposit):
         self.min_deposit = min_deposit
 
-    def getMax_deposit(self):
+    def get_max_deposit(self):
         return self.max_deposit
 
-    def setMax_deposit(self, max_deposit):
+    def set_max_deposit(self, max_deposit):
         self.max_deposit = max_deposit
 
-    def getReferral_bonus(self):
+    def get_referral_bonus(self):
         return self.referral_bonus
 
-    def setReferral_bonus(self, referral_bonus):
+    def set_referral_bonus(self, referral_bonus):
         self.referral_bonus = referral_bonus
 
-    def getPlan(self):
+    def get_plan(self):
         return self.plan
 
-    def setPlan(self, plan):
+    def set_plan(self, plan):
         self.plan = plan
 
-    def getSsl(self):
+    def get_ssl(self):
         return self.ssl
 
-    def setSsl(self, ssl):
+    def set_ssl(self, ssl):
         self.ssl = ssl
 
-    def getDdos_protect(self):
+    def get_ddos_protect(self):
         return self.ddos_protect
 
-    def setDdos_protect(self, ddos_protect):
+    def set_ddos_protect(self, ddos_protect):
         self.ddos_protect = ddos_protect
 
-    def getDays_online(self):
+    def get_days_online(self):
         return self.days_online
 
-    def setDays_online(self, days_online):
+    def set_days_online(self, days_online):
         self.days_online = days_online
 
-    def getPayment_methods(self):
+    def get_payment_methods(self):
         return self.payment_methods
 
-    def setPayment_methods(self, payment_methods):
+    def set_payment_methods(self, payment_methods):
         self.payment_methods = payment_methods
 
-    def addPayment_method(self, payment_method):
+    def add_payment_method(self, payment_method):
         self.payment_methods.append(payment_method)

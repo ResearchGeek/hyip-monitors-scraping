@@ -35,14 +35,14 @@ today = datetime.date.today()
 result_filename = 'hyip' + today.strftime('-%d-%b-%Y') + '.csv'
 
 
-def isWindows():
+def is_windows():
     if sys.platform.startswith('win'):
         return True
     else:
         return False
 
 
-def isLinux():
+def is_linux():
     if sys.platform.startswith('linux'):
         return True
     else:
@@ -108,7 +108,7 @@ class UnicodeWriter:
 
     def __init__(self, f, dialect=MyDialect, encoding="utf-8", **kwds):
         # Redirect output to a queue
-        self.queue = cStringIO.StringIO()
+        self.queue = cStringIO()
         self.writer = csv.writer(self.queue, dialect=dialect, **kwds)
         self.stream = f
         self.encoder = codecs.getincrementalencoder(encoding)()
@@ -117,7 +117,11 @@ class UnicodeWriter:
         self.writer.writerow([s.encode("utf-8") for s in row])
         # Fetch UTF-8 output from the queue ...
         data = self.queue.getvalue()
-        data = data.decode("utf-8")
+        try:
+            data = data.decode("utf-8")
+        except AttributeError:
+            pass
+            # Python3 no need to decode
         # ... and re-encode it into the target encoding
         data = self.encoder.encode(data)
         # write to the target stream
@@ -155,11 +159,12 @@ def makeHeaders():
 def output(hyip, portalname):
     with open(portalname + '-' + result_filename, 'ab') as result_csvfile:
             result_writer = UnicodeWriter(result_csvfile)
-            result_writer.writerow([hyip.get_name(), hyip.getStatus(), hyip.getUrl(),
-                                   'http://' + urllib.prase(hyip.getUrl()).netloc, hyip.getPayouts(), hyip.getLife_time(),
-                                    hyip.getMonitoring(), hyip.getAdmin_rate(), hyip.getUser_rate(), hyip.getFunds_return(),
-                                    hyip.getMin_deposit(), hyip.getMax_deposit(), hyip.getReferral_bonus(),
-                                    str(hyip.getPayment_methods()), hyip.getPlan()])
+            result_writer.writerow([hyip.get_name(), hyip.get_status(), hyip.get_url(),
+                                   'http://' + urllib.prase(hyip.get_url()).netloc, hyip.get_payouts(),
+                                    hyip.get_life_time(), hyip.get_monitoring(), hyip.get_admin_rate(),
+                                    hyip.get_user_rate(), hyip.get_funds_return(), hyip.get_min_deposit(),
+                                    hyip.get_max_deposit(), hyip.get_referral_bonus(),
+                                    str(hyip.get_payment_methods()), hyip.get_plan()])
             result_csvfile.close()
 
 
@@ -220,7 +225,7 @@ if __name__ == "__main__":
                 hyip_url = 'http://www.goldpoll.com' + hyip_name_tag['href']
                 six.print_('Name: ' + hyip_name.strip())
                 six.print_('URL: ' + hyip_url)
-                hyip.setName(hyip_name.strip())
+                hyip.set_name(hyip_name.strip())
 
                 session = requests.session()
                 a = requests.adapters.HTTPAdapter(max_retries=5)
@@ -246,10 +251,10 @@ if __name__ == "__main__":
                     six.print_('small2 found:' + string_content)
                     if (content.string is not None) and ('lifetime' in content.string):
                         index = small2.index(content) + 1
-                        hyip.setLife_time(small2[index].strip())
+                        hyip.set_life_time(small2[index].strip())
                     if (content.string is not None) and ('monitoring' in content.string):
                         index = small2.index(content) + 1
-                        hyip.setMonitoring(small2[index].strip())
+                        hyip.set_monitoring(small2[index].strip())
                     if (content.string is not None) and ('admin rate' in content.string):
                         index = small2.index(content) + 1
                         hyip.setAdmin_rate(small2[index].strip())
@@ -338,17 +343,12 @@ if __name__ == "__main__":
             the_page = response.read()
             webpage = the_page.decode("ISO-8859-1")
             parser = etree.HTMLParser()
-            #jar = cookielib.FileCookieJar("cookies")
-            #opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar))
-            #response = opener.open(hyip_url)
-            #print response
-            #exit(1)
             tree = etree.fromstring(webpage, parser)
             elements_c10 = tree.xpath('//table[@class="cl0"]')
             six.print_(elements_c10)
     if 'popularhyip' in sites:
         if method == 'static':
-            dir_separator = ('\\' if isWindows() else '/')
+            dir_separator = ('\\' if is_windows() else '/')
             doc = html.parse('input' + dir_separator + geckoname)
             #print etree.tostring(doc)
             elements_status1 = doc.xpath('//tr[@class="status1" and (not(@id))]')
@@ -366,7 +366,7 @@ if __name__ == "__main__":
                 hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
                 six.print_('Name: ' + hyip_name)
                 six.print_('URL: ' + hyip_url)
-                hyip.setName(hyip_name)
+                hyip.set_name(hyip_name)
                 six.print_(hyip_plan)
                 hyip.setPlan(hyip_plan)
 
@@ -394,10 +394,10 @@ if __name__ == "__main__":
                     six.print_(i.contents)
                 hyip.setUser_rate(informations[2].contents[0].string.strip())
                 hyip.setPayouts(informations[3].contents[0].contents[0].string.strip())
-                hyip.setMonitoring(informations[4].contents[0].string.strip())
-                hyip.setPlan_details(informations[5].contents[0].string.strip())
-                hyip.setPrincipal_return(informations[6].contents[0].string.strip())
-                hyip.setWithdraw_type(informations[7].contents[0].string.strip())
+                hyip.set_monitoring(informations[4].contents[0].string.strip())
+                hyip.set_plan_details(informations[5].contents[0].string.strip())
+                hyip.set_principal_return(informations[6].contents[0].string.strip())
+                hyip.set_withdraw_type(informations[7].contents[0].string.strip())
 
                 hyip.setDays_online(informations[8].contents[0].string.strip())
                 hyip.setMin_deposit(informations[10].contents[0].string.strip())
@@ -422,7 +422,7 @@ if __name__ == "__main__":
                         hyip.addPayment_method('Payza')
                 six.print_(hyip.getPayment_methods())
 
-                hyip.setLife_time('N/A')
+                hyip.set_life_time('N/A')
                 # get a "lifetime" from the "view full details"
 
                 hyip.setFunds_return('N/A')
@@ -443,7 +443,7 @@ if __name__ == "__main__":
                 hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
                 six.print_('Name: ' + hyip_name)
                 six.print_('URL: ' + hyip_url)
-                hyip.setName(hyip_name)
+                hyip.set_name(hyip_name)
                 six.print_(hyip_plan)
                 hyip.setPlan(hyip_plan)
 
@@ -471,10 +471,10 @@ if __name__ == "__main__":
                     six.print_(i.contents)
                 hyip.setUser_rate(informations[2].contents[0].string.strip())
                 hyip.setPayouts(informations[3].contents[0].contents[0].string.strip())
-                hyip.setMonitoring(informations[4].contents[0].string.strip())
-                hyip.setPlan_details(informations[5].contents[0].string.strip())
-                hyip.setPrincipal_return(informations[6].contents[0].string.strip())
-                hyip.setWithdraw_type(informations[7].contents[0].string.strip())
+                hyip.set_monitoring(informations[4].contents[0].string.strip())
+                hyip.set_plan_details(informations[5].contents[0].string.strip())
+                hyip.set_principal_return(informations[6].contents[0].string.strip())
+                hyip.set_withdraw_type(informations[7].contents[0].string.strip())
 
                 hyip.setDays_online(informations[8].contents[0].string.strip())
                 hyip.setMin_deposit(informations[10].contents[0].string.strip())
@@ -498,7 +498,7 @@ if __name__ == "__main__":
                     elif 'pm7' in payi['class']:
                         hyip.addPayment_method('Payza')
                 six.print_(hyip.getPayment_methods())
-                hyip.setLife_time('N/A')
+                hyip.set_life_time('N/A')
                 # get a "lifetime" from the "view full details"
 
                 hyip.setFunds_return('N/A')
@@ -519,7 +519,7 @@ if __name__ == "__main__":
                 hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
                 six.print_('Name: ' + hyip_name)
                 six.print_('URL: ' + hyip_url)
-                hyip.setName(hyip_name)
+                hyip.set_name(hyip_name)
                 six.print_(hyip_plan)
                 hyip.setPlan(hyip_plan)
 
@@ -547,10 +547,10 @@ if __name__ == "__main__":
                     six.print_(i.contents)
                 hyip.setUser_rate(informations[2].contents[0].string.strip())
                 hyip.setPayouts(informations[3].contents[0].contents[0].string.strip())
-                hyip.setMonitoring(informations[4].contents[0].string.strip())
-                hyip.setPlan_details(informations[5].contents[0].string.strip())
-                hyip.setPrincipal_return(informations[6].contents[0].string.strip())
-                hyip.setWithdraw_type(informations[7].contents[0].string.strip())
+                hyip.set_monitoring(informations[4].contents[0].string.strip())
+                hyip.set_plan_details(informations[5].contents[0].string.strip())
+                hyip.set_principal_return(informations[6].contents[0].string.strip())
+                hyip.set_withdraw_type(informations[7].contents[0].string.strip())
 
                 hyip.setDays_online(informations[8].contents[0].string.strip())
                 hyip.setMin_deposit(informations[10].contents[0].string.strip())
@@ -574,7 +574,7 @@ if __name__ == "__main__":
                     elif 'pm7' in payi['class']:
                         hyip.addPayment_method('Payza')
                 six.print_(hyip.getPayment_methods())
-                hyip.setLife_time('N/A')
+                hyip.set_life_time('N/A')
                 # get a "lifetime" from the "view full details"
 
                 hyip.setFunds_return('N/A')
@@ -595,7 +595,7 @@ if __name__ == "__main__":
                 hyip_url = 'http://www.popularhyip.com' + hyip_url_onclick[1]
                 six.print_('Name: ' + hyip_name)
                 six.print_('URL: ' + hyip_url)
-                hyip.setName(hyip_name)
+                hyip.set_name(hyip_name)
                 six.print_(hyip_plan)
                 hyip.setPlan(hyip_plan)
 
@@ -623,10 +623,10 @@ if __name__ == "__main__":
                     six.print_(i.contents)
                 hyip.setUser_rate(informations[2].contents[0].string.strip())
                 hyip.setPayouts(informations[3].contents[0].contents[0].string.strip())
-                hyip.setMonitoring(informations[4].contents[0].string.strip())
-                hyip.setPlan_details(informations[5].contents[0].string.strip())
-                hyip.setPrincipal_return(informations[6].contents[0].string.strip())
-                hyip.setWithdraw_type(informations[7].contents[0].string.strip())
+                hyip.set_monitoring(informations[4].contents[0].string.strip())
+                hyip.set_plan_details(informations[5].contents[0].string.strip())
+                hyip.set_principal_return(informations[6].contents[0].string.strip())
+                hyip.set_withdraw_type(informations[7].contents[0].string.strip())
 
                 hyip.setDays_online(informations[8].contents[0].string.strip())
                 hyip.setMin_deposit(informations[10].contents[0].string.strip())
@@ -650,20 +650,20 @@ if __name__ == "__main__":
                     elif 'pm7' in payi['class']:
                         hyip.addPayment_method('Payza')
                 six.print_(hyip.getPayment_methods())
-                hyip.setLife_time('N/A')
+                hyip.set_life_time('N/A')
                 # get a "lifetime" from the "view full details"
 
                 hyip.setFunds_return('N/A')
                 hyip.setAdmin_rate('N/A')
                 output(hyip, 'popularhyip')
         elif method == 'native':
-            six.print_('Not supported yet! Use static or dont define @method at all')
+            six.print_("Not supported yet! Use static or don't define @method at all")
             exit(1)
             doc = html.parse(popularhyip_url)
             #print etree.tostring(doc)
             elements_status4 = doc.xpath('//tr[@class="status4"]')
             six.print_(len(elements_status4))
         elif method == 'mechanize':
-            six.print_('Not supported yet! Use static or dont define @method at all')
+            six.print_("Not supported yet! Use static or don't define @method at all")
         elif method == 'urllib2':
-            six.print_('Not supported yet! Use static or dont define @method at all')
+            six.print_("Not supported yet! Use static or don't define @method at all")
