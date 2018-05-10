@@ -1,5 +1,5 @@
 '''
-Represents a single Hyip being
+Represents a single HYIP entity
 
 @since 1.0
 @author Oskar Jarczyk
@@ -34,7 +34,7 @@ class Hyip():
     ssl = None
     ddos_protect = None
 
-    def getName(self):
+    def get_name(self):
         return self.repository_name
 
     def setName(self, name):
